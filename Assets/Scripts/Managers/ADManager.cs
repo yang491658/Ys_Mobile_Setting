@@ -91,6 +91,13 @@ public class ADManager : MonoBehaviour
                 banner = new BannerView(bannerId, size, AdPosition.Top);
                 banner.LoadAd(new AdRequest());
                 RegisterBanner();
+
+                var go = GameObject.Find("ADAPTIVE(Clone)");
+                if (go != null)
+                {
+                    go.name = "Banner";
+                    go.transform.SetParent(transform);
+                }
             }
             else banner.Show();
         }
