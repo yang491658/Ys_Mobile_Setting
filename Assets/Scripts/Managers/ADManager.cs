@@ -1,9 +1,6 @@
-using GoogleMobileAds.Api;
-using System.Collections;
-using System.Drawing;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+using System.Collections;
+using GoogleMobileAds.Api;
 
 public class ADManager : MonoBehaviour
 {

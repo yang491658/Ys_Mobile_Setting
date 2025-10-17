@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void Quit()
     {
-        ADManager.Instance?.ShowReward(() =>
+        ADManager.Instance.ShowReward(() =>
         {
             Time.timeScale = 1f;
 #if UNITY_EDITOR
