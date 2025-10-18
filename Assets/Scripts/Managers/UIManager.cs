@@ -141,7 +141,7 @@ public class UIManager : MonoBehaviour
         OnOpenUI -= GameManager.Instance.Pause;
     }
 
-    #region OPEN
+    #region 오픈
     public void OpenUI(bool _on)
     {
         OpenResult(_on);
@@ -189,7 +189,7 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region UPDATE
+    #region 업데이트
     public void UpdateScore(int _score)
     {
         scoreText.text = _score.ToString("0000");

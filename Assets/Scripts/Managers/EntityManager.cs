@@ -9,7 +9,7 @@ public class EntityManager : MonoBehaviour
     public static EntityManager Instance { get; private set; }
 
     [Header("Data")]
-    [SerializeField] private GameObject unitBase;
+    [SerializeField] private GameObject basePrefab;
 
     [Header("Spawn")]
     [SerializeField] private Transform spawnPos;
@@ -17,11 +17,11 @@ public class EntityManager : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
+        if (basePrefab == null)
+            basePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Base.prefab");
+
         if (spawnPos == null)
             spawnPos = transform.Find("SpawnPos");
-
-        if (unitBase == null)
-            unitBase = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/UnitBase.prefab");
     }
 #endif
 
@@ -42,7 +42,7 @@ public class EntityManager : MonoBehaviour
     #region 제거
     #endregion
 
-    #region 개수
+    #region 동작
     #endregion
 
     #region SET
