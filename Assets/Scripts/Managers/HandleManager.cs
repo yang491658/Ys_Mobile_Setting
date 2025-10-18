@@ -15,6 +15,13 @@ public class HandleManager : MonoBehaviour
     private const float doubleClick = 0.25f;
     private bool isDoubleClick;
 
+    [Header("Drag")]
+    private const float drag = 0.15f;
+    private bool isDragging;
+    private Vector2 dragStart;
+    private Vector2 dragCurrent;
+
+#if UNITY_EDITOR
     [Header("Mark")]
     private readonly List<Vector2> marks = new();
     private readonly List<float> markTimes = new();
@@ -23,13 +30,8 @@ public class HandleManager : MonoBehaviour
     [SerializeField] private float markRadius = 0.5f;
     [SerializeField] private int markSegment = 24;
 
-    [Header("Drag")]
-    private const float drag = 0.15f;
-    private bool isDragging;
-    private Vector2 dragStart;
-    private Vector2 dragCurrent;
-
     private readonly List<Vector2> dragPath = new();
+#endif
 
     private void Awake()
     {
@@ -104,11 +106,13 @@ public class HandleManager : MonoBehaviour
 
         if (CanSelect(hit))
         {
+            isDragging = false;
             dragStart = worldPos;
             dragCurrent = dragStart;
+#if UNITY_EDITOR
             dragPath.Clear();
             dragPath.Add(dragStart);
-            isDragging = false;
+#endif
         }
     }
 
@@ -126,8 +130,10 @@ public class HandleManager : MonoBehaviour
         if (isDragging)
         {
             dragCurrent = worldPos;
-            dragPath.Add(dragCurrent);
             OnDragMove(dragStart, dragCurrent);
+#if UNITY_EDITOR
+            dragPath.Add(dragCurrent);
+#endif
         }
     }
 
@@ -140,10 +146,12 @@ public class HandleManager : MonoBehaviour
             float distance = Vector2.Distance(dragStart, worldPos);
             if (distance >= drag)
             {
-                dragPath.Add(worldPos);
                 isDragging = false;
                 OnDragEnd(dragStart, worldPos);
+#if UNITY_EDITOR
+                dragPath.Add(worldPos);
                 dragPath.Clear();
+#endif
                 return;
             }
         }
@@ -162,7 +170,9 @@ public class HandleManager : MonoBehaviour
         }
 
         isDragging = false;
+#if UNITY_EDITOR
         dragPath.Clear();
+#endif
     }
 
     private IEnumerator SingleCoroutine(Vector2 _pos)
@@ -180,13 +190,17 @@ public class HandleManager : MonoBehaviour
     private void OnSingle(Vector2 _pos)
     {
         Debug.Log($"단순 터치 : {_pos}"); // TODO : 단순 터치 동작
-        AddClick(_pos, Color.cyan);
+#if UNITY_EDITOR
+        AddClick(_pos, Color.blue);
+#endif
     }
 
     private void OnDouble(Vector2 _pos)
     {
         Debug.Log($"더블 터치 : {_pos}"); // TODO : 더블 터치 동작
+#if UNITY_EDITOR
         AddClick(_pos, Color.blue);
+#endif
     }
 
     private void OnDragBegin(Vector2 _pos)
@@ -216,7 +230,6 @@ public class HandleManager : MonoBehaviour
         Debug.Log($"휠클릭 : {_pos}"); // TODO : 휠클릭 동작
         AddClick(_pos, Color.red);
     }
-#endif
 
     private void AddClick(Vector2 _pos, Color _color)
     {
@@ -261,5 +274,6 @@ public class HandleManager : MonoBehaviour
                 Debug.DrawLine(dragPath[i - 1], dragPath[i], Color.magenta);
         }
     }
+#endif
     #endregion
 }
