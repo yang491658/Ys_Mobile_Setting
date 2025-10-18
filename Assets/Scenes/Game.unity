@@ -2299,7 +2299,7 @@ SpriteRenderer:
   m_SortingLayerID: -648448157
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 261f30a3fff29734fbf182669500ec10, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2307,7 +2307,7 @@ SpriteRenderer:
   m_Size: {x: 16, y: 24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &834979570
@@ -4908,11 +4908,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 49731314153f00046b85f50fdc038198, type: 3}
     sfxClips:
     - {fileID: 8300000, guid: 2bd74fec26584e646adfcee5d63449bd, type: 3}
-    - {fileID: 8300000, guid: 0735812416926964ea0e4b383aa6fa20, type: 3}
-    - {fileID: 8300000, guid: 58c0bd9825fcc4648bddc2fca11d848a, type: 3}
     - {fileID: 8300000, guid: ceebd236cb9506b488ca55c45d0c9580, type: 3}
-    - {fileID: 8300000, guid: 07516dcb8d5fe21449c80680f9e47417, type: 3}
-    - {fileID: 8300000, guid: 527b07d42b46e8c4eb6abaf83a227a8c, type: 3}
 --- !u!4 &1640530186
 Transform:
   m_ObjectHideFlags: 0
