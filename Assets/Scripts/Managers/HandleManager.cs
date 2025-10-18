@@ -191,7 +191,7 @@ public class HandleManager : MonoBehaviour
     {
         Debug.Log($"단순 터치 : {_pos}"); // TODO : 단순 터치 동작
 #if UNITY_EDITOR
-        AddClick(_pos, Color.blue);
+        AddClick(_pos, Color.cyan);
 #endif
     }
 
