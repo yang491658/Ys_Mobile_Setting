@@ -251,14 +251,6 @@ public class UIManager : MonoBehaviour
     public void OnClickCancel() => OpenConfirm(false);
     #endregion
 
-    private IEnumerator PlayClickThen(System.Action _action)
-    {
-        SoundManager.Instance?.Button();
-        float len = SoundManager.Instance.GetSFXLength("Button");
-        if (len > 0f) yield return new WaitForSecondsRealtime(len);
-        _action?.Invoke();
-    }
-
     #region SET
     public void SetInGameUI(float _margin)
     {
