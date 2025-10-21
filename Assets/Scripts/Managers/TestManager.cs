@@ -29,13 +29,10 @@ public class TestManager : MonoBehaviour
         #region 게임 테스트
         if (Input.GetKeyDown(KeyCode.P))
             GameManager.Instance?.Pause(!GameManager.Instance.IsPaused);
-
         if (Input.GetKeyDown(KeyCode.R))
             GameManager.Instance?.Replay();
-
         if (Input.GetKeyDown(KeyCode.Q))
             GameManager.Instance?.Quit();
-
         if (Input.GetKeyDown(KeyCode.G))
             GameManager.Instance?.GameOver();
 
