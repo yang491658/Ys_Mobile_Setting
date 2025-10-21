@@ -1295,6 +1295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a12951844ec24429f29b1ad8bb4617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDrag: 5
   markDuration: 1
   markRadius: 0.5
   markSegment: 24
@@ -1844,7 +1845,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -6150,7 +6151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8757234db11563c478a55d79795ecf2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basePrefab: {fileID: 0}
+  basePrefab: {fileID: 5722785425875581763, guid: fcc642ab4c73d1e4c8356c67e1abceb5, type: 3}
   spawnPos: {fileID: 376691772}
 --- !u!4 &2061510342
 Transform:

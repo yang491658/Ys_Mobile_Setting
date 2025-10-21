@@ -16,6 +16,7 @@ public class HandleManager : MonoBehaviour
     private bool isDoubleClick;
 
     [Header("Drag")]
+    [SerializeField][Min(0f)] private float maxDrag = 5f;
     private const float drag = 0.15f;
     private bool isDragging;
     private Vector2 dragStart;
@@ -23,14 +24,20 @@ public class HandleManager : MonoBehaviour
 
 #if UNITY_EDITOR
     [Header("Mark")]
-    private readonly List<Vector2> marks = new();
-    private readonly List<float> markTimes = new();
-    private readonly List<Color> markColors = new();
     [SerializeField] private float markDuration = 1f;
     [SerializeField] private float markRadius = 0.5f;
     [SerializeField] private int markSegment = 24;
+    private readonly List<Vector2> marks = new();
+    private readonly List<float> markTimes = new();
+    private readonly List<Color> markColors = new();
 
     private readonly List<Vector2> dragPath = new();
+#endif
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+    }
 #endif
 
     private void Awake()
@@ -129,6 +136,15 @@ public class HandleManager : MonoBehaviour
 
         if (isDragging)
         {
+            if (maxDrag > 0f)
+            {
+                Vector2 delta = worldPos - dragStart;
+                float sqrMag = delta.sqrMagnitude;
+                float maxSqr = maxDrag * maxDrag;
+                if (sqrMag > maxSqr)
+                    worldPos = dragStart + delta.normalized * maxDrag;
+            }
+
             dragCurrent = worldPos;
             OnDragMove(dragStart, dragCurrent);
 #if UNITY_EDITOR
@@ -143,6 +159,15 @@ public class HandleManager : MonoBehaviour
 
         if (isDragging)
         {
+            if (maxDrag > 0f)
+            {
+                Vector2 delta = worldPos - dragStart;
+                float sqrMag = delta.sqrMagnitude;
+                float maxSqr = maxDrag * maxDrag;
+                if (sqrMag > maxSqr)
+                    worldPos = dragStart + delta.normalized * maxDrag;
+            }
+
             float distance = Vector2.Distance(dragStart, worldPos);
             if (distance >= drag)
             {
