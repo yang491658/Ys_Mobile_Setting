@@ -226,7 +226,7 @@ public class UIManager : MonoBehaviour
         {
             if (SoundManager.Instance.IsSFXMuted())
                 sfxIcon.sprite = sfxIcons[2];
-            else if (SoundManager.Instance.GetSFXVolume() < 0.2f)
+            else if (SoundManager.Instance?.GetSFXVolume() < 0.2f)
                 sfxIcon.sprite = sfxIcons[1];
             else
                 sfxIcon.sprite = sfxIcons[0];
@@ -238,8 +238,8 @@ public class UIManager : MonoBehaviour
     public void OnClickSetting() => OpenSetting(true);
     public void OnClickClose() => OpenUI(false);
 
-    public void OnClickBGM() => SoundManager.Instance.ToggleBGM();
-    public void OnClickSFX() => SoundManager.Instance.ToggleSFX();
+    public void OnClickBGM() => SoundManager.Instance?.ToggleBGM();
+    public void OnClickSFX() => SoundManager.Instance?.ToggleSFX();
 
     public void OnClickReplay() => OpenConfirm(true, "다시", GameManager.Instance.Replay);
     public void OnClickQuit() => OpenConfirm(true, "종료", GameManager.Instance.Quit);
@@ -253,11 +253,19 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator PlayClickThen(System.Action _action)
     {
-        SoundManager.Instance.Button();
+        SoundManager.Instance?.Button();
         float len = SoundManager.Instance.GetSFXLength("Button");
         if (len > 0f) yield return new WaitForSecondsRealtime(len);
         _action?.Invoke();
     }
+
+    #region SET
+    public void SetInGameUI(float _margin)
+    {
+        var rt = inGameUI.GetComponent<RectTransform>();
+        rt.offsetMax = new Vector2(rt.offsetMax.x, rt.offsetMax.y - _margin);
+    }
+    #endregion
 
     #region GET
     public bool GetOnSetting() => settingUI.activeSelf;

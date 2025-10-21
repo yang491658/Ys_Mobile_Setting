@@ -88,10 +88,10 @@ public class HandleManager : MonoBehaviour
             HandleEnd(t.position);
     }
 
-    private bool IsOverUI(int fingerID = -1)
-        => EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(fingerID);
+    private bool IsOverUI(int _fingerID = -1)
+        => EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(_fingerID);
 
-    private Vector2 ScreenToWorld(Vector2 screenPos) => cam.ScreenToWorldPoint(screenPos);
+    private Vector3 ScreenToWorld(Vector3 _screenPos) => cam.ScreenToWorldPoint(_screenPos);
 
     private bool CanSelect(RaycastHit2D _go)
     {

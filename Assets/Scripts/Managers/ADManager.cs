@@ -85,6 +85,8 @@ public class ADManager : MonoBehaviour
     {
         if (_show)
         {
+            float margin = 0;
+
             if (banner == null)
             {
                 var size = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
@@ -97,9 +99,15 @@ public class ADManager : MonoBehaviour
                 {
                     go.name = "Banner";
                     go.transform.SetParent(transform);
+
+                    var image = go.transform.Find("Image");
+                    if (image != null)
+                        margin = image.GetComponent<RectTransform>().rect.height;
                 }
             }
             else banner.Show();
+
+            UIManager.Instance?.SetInGameUI(margin);
         }
         else banner?.Hide();
     }

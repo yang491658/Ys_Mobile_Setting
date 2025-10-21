@@ -39,9 +39,9 @@ public class GameManager : MonoBehaviour
         IsGameOver = false;
         ResetScore();
 
-        SoundManager.Instance.PlayBGM("Default");
+        SoundManager.Instance?.PlayBGM("Default");
 
-        UIManager.Instance.OpenUI(false);
+        UIManager.Instance?.OpenUI(false);
     }
 
     #region Á¡¼ö
@@ -69,23 +69,30 @@ public class GameManager : MonoBehaviour
 
     public void Replay()
     {
-        ADManager.Instance.ShowReward(() =>
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        });
+        if (ADManager.Instance != null)
+            ADManager.Instance?.ShowReward(() => { ReplayGame(); });
+        else
+            ReplayGame();
     }
+
+    private void ReplayGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     public void Quit()
     {
-        ADManager.Instance.ShowReward(() =>
-        {
-            Time.timeScale = 1f;
+        if (ADManager.Instance != null)
+            ADManager.Instance?.ShowReward(() => { QuitGame(); });
+        else
+            QuitGame();
+    }
+
+    private void QuitGame()
+    {
+        Time.timeScale = 1f;
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
-                Application.Quit();
+        Application.Quit();
 #endif
-        });
     }
 
     public void GameOver()
@@ -94,8 +101,8 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
 
         Pause(true);
-        SoundManager.Instance.GameOver();
-        UIManager.Instance.OpenResult(true);
+        SoundManager.Instance?.GameOver();
+        UIManager.Instance?.OpenResult(true);
     }
     #endregion
 

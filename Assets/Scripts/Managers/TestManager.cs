@@ -28,16 +28,16 @@ public class TestManager : MonoBehaviour
     {
         #region 게임 테스트
         if (Input.GetKeyDown(KeyCode.P))
-            GameManager.Instance.Pause(!GameManager.Instance.IsPaused);
+            GameManager.Instance?.Pause(!GameManager.Instance.IsPaused);
 
         if (Input.GetKeyDown(KeyCode.R))
-            GameManager.Instance.Replay();
+            GameManager.Instance?.Replay();
 
         if (Input.GetKeyDown(KeyCode.Q))
-            GameManager.Instance.Quit();
+            GameManager.Instance?.Quit();
 
         if (Input.GetKeyDown(KeyCode.G))
-            GameManager.Instance.GameOver();
+            GameManager.Instance?.GameOver();
 
         if (Input.GetKeyDown(KeyCode.O))
             isAutoReplay = !isAutoReplay;
@@ -48,9 +48,9 @@ public class TestManager : MonoBehaviour
 
         #region 사운드 테스트
         if (Input.GetKeyDown(KeyCode.M))
-            SoundManager.Instance.ToggleBGM();
+            SoundManager.Instance?.ToggleBGM();
         if (Input.GetKeyDown(KeyCode.N))
-            SoundManager.Instance.ToggleSFX();
+            SoundManager.Instance?.ToggleSFX();
         #endregion
 
         #region 엔티티 테스트
@@ -70,11 +70,11 @@ public class TestManager : MonoBehaviour
 
         #region UI 테스트
         if (Input.GetKeyDown(KeyCode.Z))
-            UIManager.Instance.OpenSetting(!UIManager.Instance.GetOnSetting());
+            UIManager.Instance?.OpenSetting(!UIManager.Instance.GetOnSetting());
         if (Input.GetKeyDown(KeyCode.X))
-            UIManager.Instance.OpenConfirm(!UIManager.Instance.GetOnConfirm());
+            UIManager.Instance?.OpenConfirm(!UIManager.Instance.GetOnConfirm());
         if (Input.GetKeyDown(KeyCode.C))
-            UIManager.Instance.OpenResult(!UIManager.Instance.GetOnResult());
+            UIManager.Instance?.OpenResult(!UIManager.Instance.GetOnResult());
         #endregion
     }
 
@@ -96,7 +96,7 @@ public class TestManager : MonoBehaviour
         if (GameManager.Instance.IsGameOver)
         {
             testCount++;
-            GameManager.Instance.Replay();
+            GameManager.Instance?.Replay();
         }
         playRoutine = null;
     }
