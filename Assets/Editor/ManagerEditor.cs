@@ -6,10 +6,11 @@ using System;
 
 static public class ManagerEditor
 {
+    static private bool IsPlaying() => !EditorApplication.isPlaying;
+
     #region ÃÊ±âÈ­
     static private void ResetInspector(Component _comp)
     {
-        if (_comp == null) return;
         Undo.RegisterCompleteObjectUndo(_comp, "Reset");
         Unsupported.SmartReset(_comp);
         EditorUtility.SetDirty(_comp);
@@ -28,6 +29,8 @@ static public class ManagerEditor
         }
     }
 
+    [MenuItem("Tools/¸Å´ÏÀú ÃÊ±âÈ­", true)]
+    static private bool ResetManagers_Validate() => IsPlaying();
     [MenuItem("Tools/¸Å´ÏÀú ÃÊ±âÈ­", false, 1)]
     static private void ResetManagers()
     {
@@ -69,31 +72,27 @@ static public class ManagerEditor
     #endregion
 
     #region UI
+    [MenuItem("Tools/UI ÄÑ±â", true)]
+    static private bool UIOn_Validate() => IsPlaying() && !AnyActive<UIManager>();
     [MenuItem("Tools/UI ÄÑ±â", false, 101)]
     static private void UIOn() => SetActive<UIManager>(true, "UI ÄÑ±â", "UI ²ô±â");
 
-    [MenuItem("Tools/UI ÄÑ±â", true)]
-    static private bool UIOn_Validate() => !AnyActive<UIManager>();
-
+    [MenuItem("Tools/UI ²ô±â", true)]
+    static private bool UIOff_Validate() => IsPlaying() && AnyActive<UIManager>();
     [MenuItem("Tools/UI ²ô±â", false, 102)]
     static private void UIOff() => SetActive<UIManager>(false, "UI ÄÑ±â", "UI ²ô±â");
-
-    [MenuItem("Tools/UI ²ô±â", true)]
-    static private bool UIOff_Validate() => AnyActive<UIManager>();
     #endregion
 
     #region ±¤°í
+    [MenuItem("Tools/±¤°í ÄÑ±â", true)]
+    static private bool AdsOn_Validate() => IsPlaying() && !AnyActive<ADManager>();
     [MenuItem("Tools/±¤°í ÄÑ±â", false, 201)]
     static private void AdsOn() => SetActive<ADManager>(true, "±¤°í ÄÑ±â", "±¤°í ²ô±â");
 
-    [MenuItem("Tools/±¤°í ÄÑ±â", true)]
-    static private bool AdsOn_Validate() => !AnyActive<ADManager>();
-
+    [MenuItem("Tools/±¤°í ²ô±â", true)]
+    static private bool AdsOff_Validate() => IsPlaying() && AnyActive<ADManager>();
     [MenuItem("Tools/±¤°í ²ô±â", false, 202)]
     static private void AdsOff() => SetActive<ADManager>(false, "±¤°í ÄÑ±â", "±¤°í ²ô±â");
-
-    [MenuItem("Tools/±¤°í ²ô±â", true)]
-    static private bool AdsOff_Validate() => AnyActive<ADManager>();
     #endregion
 }
 #endif
