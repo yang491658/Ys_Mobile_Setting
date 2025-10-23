@@ -70,6 +70,9 @@ public class SoundManager : MonoBehaviour
             btn.onClick.AddListener(Button);
     }
 
+    private void OnApplicationPause(bool _pause) => AudioListener.pause = _pause;
+    private void OnApplicationFocus(bool _hasFocus)=> AudioListener.pause = !_hasFocus;
+
     #region πË∞Ê¿Ω
     public void PlayBGM(AudioClip _clip)
     {
@@ -146,6 +149,9 @@ public class SoundManager : MonoBehaviour
         bgmSource.playOnAwake = false;
         sfxSource.playOnAwake = false;
         bgmSource.loop = true;
+
+        bgmSource.ignoreListenerPause = false;
+        sfxSource.ignoreListenerPause = false;
 
         SetBGMVolume(bgmVol);
         SetSFXVolume(sfxVol);
