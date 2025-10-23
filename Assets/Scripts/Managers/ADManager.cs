@@ -85,7 +85,7 @@ public class ADManager : MonoBehaviour
     {
         if (_show)
         {
-            float margin = 0;
+            float margin = 0f;
 
             if (banner == null)
             {
@@ -109,7 +109,11 @@ public class ADManager : MonoBehaviour
 
             UIManager.Instance?.SetInGameUI(margin);
         }
-        else banner?.Hide();
+        else
+        {
+            banner?.Hide();
+            UIManager.Instance?.SetInGameUI(0f);
+        }
     }
 
     private void RegisterBanner()
