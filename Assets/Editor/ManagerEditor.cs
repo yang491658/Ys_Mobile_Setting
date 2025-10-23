@@ -29,9 +29,9 @@ static public class ManagerEditor
         }
     }
 
-    [MenuItem("Tools/매니저 초기화", true)]
+    [MenuItem("Tools/스크립트 초기화", true)]
     static private bool ResetManagers_Validate() => IsPlaying();
-    [MenuItem("Tools/매니저 초기화", false, 1)]
+    [MenuItem("Tools/스크립트 초기화", false, 1)]
     static private void ResetManagers()
     {
         var _types = new Type[]
@@ -43,6 +43,9 @@ static public class ManagerEditor
             typeof(UIManager),
             typeof(ADManager),
             typeof(TestManager),
+            typeof(AutoCamera),
+            typeof(AutoUICanvas),
+            typeof(AutoBackground),
         };
         for (int i = 0; i < _types.Length; i++) ResetAll(_types[i]);
     }
