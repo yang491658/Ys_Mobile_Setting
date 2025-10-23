@@ -36,8 +36,13 @@ static public class ManagerEditor
     {
         var _types = new Type[]
         {
-            typeof(GameManager), typeof(SoundManager), typeof(EntityManager),
-            typeof(HandleManager), typeof(UIManager), typeof(ADManager), typeof(TestManager),
+            typeof(GameManager),
+            typeof(SoundManager),
+            typeof(EntityManager),
+            typeof(HandleManager),
+            typeof(UIManager),
+            typeof(ADManager),
+            typeof(TestManager),
         };
         for (int i = 0; i < _types.Length; i++) ResetAll(_types[i]);
     }
