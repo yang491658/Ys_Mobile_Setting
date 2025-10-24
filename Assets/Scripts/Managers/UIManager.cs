@@ -1,7 +1,6 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
 #if UNITY_EDITOR
@@ -141,7 +140,7 @@ public class UIManager : MonoBehaviour
         OnOpenUI -= GameManager.Instance.Pause;
     }
 
-    #region ¿ÀÇÂ
+    #region ì˜¤í”ˆ
     public void OpenUI(bool _on)
     {
         OpenResult(_on);
@@ -166,7 +165,7 @@ public class UIManager : MonoBehaviour
         if (!_pass)
         {
             confirmUI.SetActive(_on);
-            confirmText.text = $"{_text}ÇÏ½Ã°Ú½À´Ï±î?";
+            confirmText.text = $"{_text}í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
             confirmAction = _action;
         }
 
@@ -189,7 +188,7 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region ¾÷µ¥ÀÌÆ®
+    #region ì—…ë°ì´íŠ¸
     public void UpdateScore(int _score)
     {
         scoreText.text = _score.ToString("0000");
@@ -234,18 +233,18 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region ¹öÆ°
+    #region ë²„íŠ¼
     public void OnClickSetting() => OpenSetting(true);
     public void OnClickClose() => OpenUI(false);
 
     public void OnClickBGM() => SoundManager.Instance?.ToggleBGM();
     public void OnClickSFX() => SoundManager.Instance?.ToggleSFX();
 
-    public void OnClickReplay() => OpenConfirm(true, "´Ù½Ã", GameManager.Instance.Replay);
-    public void OnClickQuit() => OpenConfirm(true, "Á¾·á", GameManager.Instance.Quit);
+    public void OnClickReplay() => OpenConfirm(true, "ë‹¤ì‹œ", GameManager.Instance.Replay);
+    public void OnClickQuit() => OpenConfirm(true, "ì¢…ë£Œ", GameManager.Instance.Quit);
 
-    public void OnClickReplayByPass() => OpenConfirm(true, "´Ù½Ã", GameManager.Instance.Replay, true);
-    public void OnClickQuitByPass() => OpenConfirm(true, "Á¾·á", GameManager.Instance.Quit, true);
+    public void OnClickReplayByPass() => OpenConfirm(true, "ë‹¤ì‹œ", GameManager.Instance.Replay, true);
+    public void OnClickQuitByPass() => OpenConfirm(true, "ì¢…ë£Œ", GameManager.Instance.Quit, true);
 
     public void OnClickOkay() => confirmAction?.Invoke();
     public void OnClickCancel() => OpenConfirm(false);
@@ -255,7 +254,7 @@ public class UIManager : MonoBehaviour
     public void SetInGameUI(float _margin)
     {
         var rt = inGameUI.GetComponent<RectTransform>();
-        rt.offsetMax = new Vector2(rt.offsetMax.x, rt.offsetMax.y - _margin);
+        rt.offsetMax = new Vector2(rt.offsetMax.x, -_margin);
     }
     #endregion
 

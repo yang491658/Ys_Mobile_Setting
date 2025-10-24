@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+ï»¿#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -8,7 +8,7 @@ static public class ManagerEditor
 {
     static private bool IsPlaying() => !EditorApplication.isPlaying;
 
-    #region ÃÊ±âÈ­
+    #region ì´ˆê¸°í™”
     static private void ResetInspector(Component _comp)
     {
         Undo.RegisterCompleteObjectUndo(_comp, "Reset");
@@ -29,9 +29,9 @@ static public class ManagerEditor
         }
     }
 
-    [MenuItem("Tools/½ºÅ©¸³Æ® ÃÊ±âÈ­", true)]
+    [MenuItem("Tools/ìŠ¤í¬ë¦½íŠ¸ ì´ˆê¸°í™”", true)]
     static private bool ResetManagers_Validate() => IsPlaying();
-    [MenuItem("Tools/½ºÅ©¸³Æ® ÃÊ±âÈ­", false, 1)]
+    [MenuItem("Tools/ìŠ¤í¬ë¦½íŠ¸ ì´ˆê¸°í™”", false, 1)]
     static private void ResetManagers()
     {
         var _types = new Type[]
@@ -51,7 +51,7 @@ static public class ManagerEditor
     }
     #endregion
 
-    #region ÄÑ±â/²ô±â
+    #region ì¼œê¸°/ë„ê¸°
     static private T FindSingle<T>() where T : Component
     {
         var c = UnityEngine.Object.FindFirstObjectByType<T>(FindObjectsInactive.Include);
@@ -80,27 +80,27 @@ static public class ManagerEditor
     #endregion
 
     #region UI
-    [MenuItem("Tools/UI ÄÑ±â", true)]
+    [MenuItem("Tools/UI ì¼œê¸°", true)]
     static private bool UIOn_Validate() => IsPlaying() && !AnyActive<UIManager>();
-    [MenuItem("Tools/UI ÄÑ±â", false, 101)]
-    static private void UIOn() => SetActive<UIManager>(true, "UI ÄÑ±â", "UI ²ô±â");
+    [MenuItem("Tools/UI ì¼œê¸°", false, 101)]
+    static private void UIOn() => SetActive<UIManager>(true, "UI ì¼œê¸°", "UI ë„ê¸°");
 
-    [MenuItem("Tools/UI ²ô±â", true)]
+    [MenuItem("Tools/UI ë„ê¸°", true)]
     static private bool UIOff_Validate() => IsPlaying() && AnyActive<UIManager>();
-    [MenuItem("Tools/UI ²ô±â", false, 102)]
-    static private void UIOff() => SetActive<UIManager>(false, "UI ÄÑ±â", "UI ²ô±â");
+    [MenuItem("Tools/UI ë„ê¸°", false, 102)]
+    static private void UIOff() => SetActive<UIManager>(false, "UI ì¼œê¸°", "UI ë„ê¸°");
     #endregion
 
-    #region ±¤°í
-    [MenuItem("Tools/±¤°í ÄÑ±â", true)]
+    #region ê´‘ê³ 
+    [MenuItem("Tools/ê´‘ê³  ì¼œê¸°", true)]
     static private bool AdsOn_Validate() => IsPlaying() && !AnyActive<ADManager>();
-    [MenuItem("Tools/±¤°í ÄÑ±â", false, 201)]
-    static private void AdsOn() => SetActive<ADManager>(true, "±¤°í ÄÑ±â", "±¤°í ²ô±â");
+    [MenuItem("Tools/ê´‘ê³  ì¼œê¸°", false, 201)]
+    static private void AdsOn() => SetActive<ADManager>(true, "ê´‘ê³  ì¼œê¸°", "ê´‘ê³  ë„ê¸°");
 
-    [MenuItem("Tools/±¤°í ²ô±â", true)]
+    [MenuItem("Tools/ê´‘ê³  ë„ê¸°", true)]
     static private bool AdsOff_Validate() => IsPlaying() && AnyActive<ADManager>();
-    [MenuItem("Tools/±¤°í ²ô±â", false, 202)]
-    static private void AdsOff() => SetActive<ADManager>(false, "±¤°í ÄÑ±â", "±¤°í ²ô±â");
+    [MenuItem("Tools/ê´‘ê³  ë„ê¸°", false, 202)]
+    static private void AdsOff() => SetActive<ADManager>(false, "ê´‘ê³  ì¼œê¸°", "ê´‘ê³  ë„ê¸°");
     #endregion
 }
 #endif

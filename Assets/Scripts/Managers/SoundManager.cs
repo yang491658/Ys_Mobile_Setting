@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
@@ -73,7 +73,7 @@ public class SoundManager : MonoBehaviour
     public void Pause(bool _on) => AudioListener.pause = _on;
     public void Pause(string _on) => AudioListener.pause = _on == "true";
 
-    #region ¹è°æÀ½
+    #region ë°°ê²½ìŒ
     public void PlayBGM(AudioClip _clip)
     {
         if (bgmSource == null || IsBGMMuted()) return;
@@ -104,7 +104,7 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
-    #region È¿°úÀ½
+    #region íš¨ê³¼ìŒ
     public void PlaySFX(AudioClip _clip)
     {
         if (sfxSource == null || IsSFXMuted()) return;

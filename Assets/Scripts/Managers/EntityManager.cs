@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -36,13 +36,13 @@ public class EntityManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    #region ¼ÒÈ¯
+    #region ì†Œí™˜
     #endregion
 
-    #region Á¦°Å
+    #region ì œê±°
     #endregion
 
-    #region µ¿ÀÛ
+    #region ë™ì‘
     #endregion
 
     #region SET

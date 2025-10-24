@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
@@ -98,12 +98,12 @@ public class HandleManager : MonoBehaviour
         if (layer == 0) return true;
 
         bool con1 = _go.collider != null;
-        bool con2 = true; // TODO : Ãß°¡ Á¶°Ç
+        bool con2 = true; // TODO : ì¶”ê°€ ì¡°ê±´
 
         return con1 && con2;
     }
 
-    #region ±¸ºĞ
+    #region êµ¬ë¶„
     private void HandleBegin(Vector2 _pos, int _fingerID = -1)
     {
         if (IsOverUI(_fingerID)) return;
@@ -211,10 +211,10 @@ public class HandleManager : MonoBehaviour
     }
     #endregion
 
-    #region µ¿ÀÛ
+    #region ë™ì‘
     private void OnSingle(Vector2 _pos)
     {
-        Debug.Log($"´Ü¼ø ÅÍÄ¡ : {_pos}"); // TODO : ´Ü¼ø ÅÍÄ¡ µ¿ÀÛ
+        Debug.Log($"ë‹¨ìˆœ í„°ì¹˜ : {_pos}"); // TODO : ë‹¨ìˆœ í„°ì¹˜ ë™ì‘
 #if UNITY_EDITOR
         AddClick(_pos, Color.cyan);
 #endif
@@ -222,7 +222,7 @@ public class HandleManager : MonoBehaviour
 
     private void OnDouble(Vector2 _pos)
     {
-        Debug.Log($"´õºí ÅÍÄ¡ : {_pos}"); // TODO : ´õºí ÅÍÄ¡ µ¿ÀÛ
+        Debug.Log($"ë”ë¸” í„°ì¹˜ : {_pos}"); // TODO : ë”ë¸” í„°ì¹˜ ë™ì‘
 #if UNITY_EDITOR
         AddClick(_pos, Color.blue);
 #endif
@@ -230,29 +230,29 @@ public class HandleManager : MonoBehaviour
 
     private void OnDragBegin(Vector2 _pos)
     {
-        Debug.Log($"µå·¡±× ½ÃÀÛ : {_pos}"); // TODO : µå·¡±× ½ÃÀÛ µ¿ÀÛ
+        Debug.Log($"ë“œë˜ê·¸ ì‹œì‘ : {_pos}"); // TODO : ë“œë˜ê·¸ ì‹œì‘ ë™ì‘
     }
 
     private void OnDragMove(Vector2 _start, Vector2 _current)
     {
-        Debug.Log($"µå·¡±× ÁøÇà"); // TODO : µå·¡±× ÁøÇà µ¿ÀÛ
+        Debug.Log($"ë“œë˜ê·¸ ì§„í–‰"); // TODO : ë“œë˜ê·¸ ì§„í–‰ ë™ì‘
     }
 
     private void OnDragEnd(Vector2 _start, Vector2 _end)
     {
-        Debug.Log($"µå·¡±× Á¾·á : {_start} ¡æ {_end}"); // TODO : µå·¡±× Á¾·á µ¿ÀÛ
+        Debug.Log($"ë“œë˜ê·¸ ì¢…ë£Œ : {_start} â†’ {_end}"); // TODO : ë“œë˜ê·¸ ì¢…ë£Œ ë™ì‘
     }
 
 #if UNITY_EDITOR
     private void OnRightClick(Vector2 _pos)
     {
-        Debug.Log($"¿ìÅ¬¸¯ : {_pos}"); // TODO : ¿ìÅ¬¸¯ µ¿ÀÛ
+        Debug.Log($"ìš°í´ë¦­ : {_pos}"); // TODO : ìš°í´ë¦­ ë™ì‘
         AddClick(_pos, Color.yellow);
     }
 
     private void OnMiddleClick(Vector2 _pos)
     {
-        Debug.Log($"ÈÙÅ¬¸¯ : {_pos}"); // TODO : ÈÙÅ¬¸¯ µ¿ÀÛ
+        Debug.Log($"íœ í´ë¦­ : {_pos}"); // TODO : íœ í´ë¦­ ë™ì‘
         AddClick(_pos, Color.red);
     }
 

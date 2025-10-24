@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteAlways]
 public class AutoBackground : MonoBehaviour

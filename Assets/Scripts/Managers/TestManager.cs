@@ -1,6 +1,6 @@
-#if UNITY_EDITOR
-using System.Collections;
+ï»¿#if UNITY_EDITOR
 using UnityEngine;
+using System.Collections;
 
 public class TestManager : MonoBehaviour
 {
@@ -29,7 +29,7 @@ public class TestManager : MonoBehaviour
 
     private void Update()
     {
-        #region °ÔÀÓ Å×½ºÆ®
+        #region ê²Œìž„ í…ŒìŠ¤íŠ¸
         if (Input.GetKeyDown(KeyCode.P))
             GameManager.Instance?.Pause(!GameManager.Instance.IsPaused);
         if (Input.GetKeyDown(KeyCode.R))
@@ -46,7 +46,7 @@ public class TestManager : MonoBehaviour
             playRoutine = StartCoroutine(AutoReplay());
         #endregion
 
-        #region »ç¿îµå Å×½ºÆ®
+        #region ì‚¬ìš´ë“œ í…ŒìŠ¤íŠ¸
         if (Input.GetKeyDown(KeyCode.B))
         {
             bgmPause = !bgmPause;
@@ -58,7 +58,7 @@ public class TestManager : MonoBehaviour
             SoundManager.Instance.ToggleSFX();
         #endregion
 
-        #region ¿£Æ¼Æ¼ Å×½ºÆ®
+        #region ì—”í‹°í‹° í…ŒìŠ¤íŠ¸
         for (int i = 1; i <= 10; i++)
         {
             KeyCode key = (i == 10) ? KeyCode.Alpha0 : (KeyCode)((int)KeyCode.Alpha0 + i);
@@ -69,11 +69,11 @@ public class TestManager : MonoBehaviour
         }
         #endregion
 
-        #region ¾×Æ® Å×½ºÆ®
+        #region ì•¡íŠ¸ í…ŒìŠ¤íŠ¸
         if (Input.GetKeyDown(KeyCode.T)) AutoPlay();
         #endregion
 
-        #region UI Å×½ºÆ®
+        #region UI í…ŒìŠ¤íŠ¸
         if (Input.GetKeyDown(KeyCode.Z))
             UIManager.Instance?.OpenSetting(!UIManager.Instance.GetOnSetting());
         if (Input.GetKeyDown(KeyCode.X))

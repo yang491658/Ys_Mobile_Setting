@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using GoogleMobileAds.Api;
 
@@ -80,7 +80,7 @@ public class ADManager : MonoBehaviour
         reward = null;
     }
 
-    #region ¹è³Ê ±¤°í
+    #region ë°°ë„ˆ ê´‘ê³ 
     public void CreateBanner(bool _show)
     {
         if (_show)
@@ -129,7 +129,7 @@ public class ADManager : MonoBehaviour
     }
     #endregion
 
-    #region Àü¸é ±¤°í
+    #region ì „ë©´ ê´‘ê³ 
     public void LoadInterAD()
     {
         interAD?.Destroy();
@@ -182,7 +182,7 @@ public class ADManager : MonoBehaviour
     }
     #endregion
 
-    #region ¸®¿öµå ±¤°í
+    #region ë¦¬ì›Œë“œ ê´‘ê³ 
     public void LoadReward()
     {
         reward?.Destroy();
@@ -215,7 +215,7 @@ public class ADManager : MonoBehaviour
 
     private void OnReward(Reward _reward)
     {
-        // TODO º¸»ó Ã³¸® ·ÎÁ÷
+        // TODO ë³´ìƒ ì²˜ë¦¬ ë¡œì§
     }
 
     private void RegisterReward(RewardedAd _ad)
