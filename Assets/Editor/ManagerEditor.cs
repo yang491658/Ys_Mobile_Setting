@@ -53,7 +53,7 @@ static public class ManagerEditor
 
     #region 켜기/끄기
     static private T FindSingle<T>() where T : Component
-        => UnityEngine.Object.FindFirstObjectByType<T>(FindObjectsInactive.Include); ;
+        => UnityEngine.Object.FindFirstObjectByType<T>(FindObjectsInactive.Include);
 
     static private bool AnyActive<T>() where T : Component
     {
@@ -79,26 +79,26 @@ static public class ManagerEditor
 
     #region UI
     [MenuItem("Tools/UI 켜기", true)]
-    static private bool UIOnValidate() => IsPlaying() && !AnyActive<UIManager>();
+    static private bool UIsOnValidate() => IsPlaying() && !AnyActive<UIManager>();
     [MenuItem("Tools/UI 켜기", false, 101)]
-    static private void UIOn() => SetActive<UIManager>(true, "UI 켜기", "UI 끄기");
+    static private void UIsOn() => SetActive<UIManager>(true, "UI 켜기", "UI 끄기");
 
     [MenuItem("Tools/UI 끄기", true)]
-    static private bool UIOffValidate() => IsPlaying() && AnyActive<UIManager>();
+    static private bool UIsOffValidate() => IsPlaying() && AnyActive<UIManager>();
     [MenuItem("Tools/UI 끄기", false, 102)]
-    static private void UIOff() => SetActive<UIManager>(false, "UI 켜기", "UI 끄기");
+    static private void UIsOff() => SetActive<UIManager>(false, "UI 켜기", "UI 끄기");
     #endregion
 
     #region 광고
     [MenuItem("Tools/광고 켜기", true)]
-    static private bool ADOnValidate() => IsPlaying() && !AnyActive<ADManager>();
+    static private bool ADsOnValidate() => IsPlaying() && !AnyActive<ADManager>();
     [MenuItem("Tools/광고 켜기", false, 201)]
-    static private void ADOn() => SetActive<ADManager>(true, "광고 켜기", "광고 끄기");
+    static private void ADsOn() => SetActive<ADManager>(true, "광고 켜기", "광고 끄기");
 
     [MenuItem("Tools/광고 끄기", true)]
-    static private bool ADOffValidate() => IsPlaying() && AnyActive<ADManager>();
+    static private bool ADsOff_Validate() => IsPlaying() && AnyActive<ADManager>();
     [MenuItem("Tools/광고 끄기", false, 202)]
-    static private void ADOff() => SetActive<ADManager>(false, "광고 켜기", "광고 끄기");
+    static private void ADsOff() => SetActive<ADManager>(false, "광고 켜기", "광고 끄기");
     #endregion
 }
 #endif
