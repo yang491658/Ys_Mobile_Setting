@@ -35,6 +35,10 @@ public class ADManager : MonoBehaviour
     private const string REWARDED_ID = "ca-app-pub-3940256099942544/5224354917";
 #endif
 
+#if UNITY_EDITOR
+    private GameObject adObj;
+#endif
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -60,11 +64,14 @@ public class ADManager : MonoBehaviour
 #if UNITY_EDITOR
     private void Update()
     {
-        var adObj = GameObject.Find("New Game Object");
-        if (adObj != null)
+        if (adObj == null)
         {
-            adObj.name = "ADPlaceholder";
-            adObj.transform.SetParent(transform);
+            adObj = GameObject.Find("New Game Object");
+            if (adObj != null)
+            {
+                adObj.name = "ADPlaceholder";
+                adObj.transform.SetParent(transform);
+            }
         }
     }
 #endif

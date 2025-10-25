@@ -191,9 +191,10 @@ public class UIManager : MonoBehaviour
     #region 업데이트
     public void UpdateScore(int _score)
     {
-        scoreText.text = _score.ToString("0000");
-        settingScoreText.text = _score.ToString("0000");
-        resultScoreText.text = _score.ToString("0000");
+        string s = _score.ToString("0000");
+        scoreText.text = s;
+        settingScoreText.text = s;
+        resultScoreText.text = s;
     }
 
     private void UpdateVolume(SoundType _type, float _volume)

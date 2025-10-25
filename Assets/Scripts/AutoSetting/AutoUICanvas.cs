@@ -39,7 +39,7 @@ public class AutoUICanvas : MonoBehaviour
         lastW = w; lastH = h;
 
         float current = w / h;
-        float reference = res.x / res.y;
-        scaler.matchWidthOrHeight = current < reference ? 0f : 1f;
+        float refAspect = res.x / res.y;
+        scaler.matchWidthOrHeight = current < refAspect ? 0f : 1f;
     }
 }

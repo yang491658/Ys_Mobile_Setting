@@ -53,27 +53,25 @@ static public class ManagerEditor
 
     #region 켜기/끄기
     static private T FindSingle<T>() where T : Component
-    {
-        var c = UnityEngine.Object.FindFirstObjectByType<T>(FindObjectsInactive.Include);
-        return c;
-    }
+        => UnityEngine.Object.FindFirstObjectByType<T>(FindObjectsInactive.Include); ;
 
     static private bool AnyActive<T>() where T : Component
     {
         var c = FindSingle<T>();
-        if (!c) return false;
+        if (c == null) return false;
         var go = c.gameObject;
-        return go && go.activeSelf;
+        return (go != null) && go.activeSelf;
     }
 
-    static private void SetActive<T>(bool on, string onLabel, string offLabel) where T : Component
+    static private void SetActive<T>(bool _on, string _onLabel, string _offLabel) where T : Component
     {
         var c = FindSingle<T>();
-        if (!c) return;
+        if (c == null) return;
         var go = c.gameObject;
-        if (!go) return;
-        Undo.RegisterFullObjectHierarchyUndo(go, on ? onLabel : offLabel);
-        go.SetActive(on);
+        if (go == null) return;
+
+        Undo.RegisterFullObjectHierarchyUndo(go, _on ? _onLabel : _offLabel);
+        go.SetActive(_on);
         EditorUtility.SetDirty(go);
         EditorSceneManager.MarkSceneDirty(go.scene);
     }
@@ -81,26 +79,26 @@ static public class ManagerEditor
 
     #region UI
     [MenuItem("Tools/UI 켜기", true)]
-    static private bool UIOn_Validate() => IsPlaying() && !AnyActive<UIManager>();
+    static private bool UIOnValidate() => IsPlaying() && !AnyActive<UIManager>();
     [MenuItem("Tools/UI 켜기", false, 101)]
     static private void UIOn() => SetActive<UIManager>(true, "UI 켜기", "UI 끄기");
 
     [MenuItem("Tools/UI 끄기", true)]
-    static private bool UIOff_Validate() => IsPlaying() && AnyActive<UIManager>();
+    static private bool UIOffValidate() => IsPlaying() && AnyActive<UIManager>();
     [MenuItem("Tools/UI 끄기", false, 102)]
     static private void UIOff() => SetActive<UIManager>(false, "UI 켜기", "UI 끄기");
     #endregion
 
     #region 광고
     [MenuItem("Tools/광고 켜기", true)]
-    static private bool AdsOn_Validate() => IsPlaying() && !AnyActive<ADManager>();
+    static private bool ADOnValidate() => IsPlaying() && !AnyActive<ADManager>();
     [MenuItem("Tools/광고 켜기", false, 201)]
-    static private void AdsOn() => SetActive<ADManager>(true, "광고 켜기", "광고 끄기");
+    static private void ADOn() => SetActive<ADManager>(true, "광고 켜기", "광고 끄기");
 
     [MenuItem("Tools/광고 끄기", true)]
-    static private bool AdsOff_Validate() => IsPlaying() && AnyActive<ADManager>();
+    static private bool ADOffValidate() => IsPlaying() && AnyActive<ADManager>();
     [MenuItem("Tools/광고 끄기", false, 202)]
-    static private void AdsOff() => SetActive<ADManager>(false, "광고 켜기", "광고 끄기");
+    static private void ADOff() => SetActive<ADManager>(false, "광고 켜기", "광고 끄기");
     #endregion
 }
 #endif

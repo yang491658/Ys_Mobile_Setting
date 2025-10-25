@@ -93,11 +93,11 @@ public class HandleManager : MonoBehaviour
 
     private Vector3 ScreenToWorld(Vector3 _screenPos) => cam.ScreenToWorldPoint(_screenPos);
 
-    private bool CanSelect(RaycastHit2D _go)
+    private bool CanSelect(Collider2D _col)
     {
         if (layer == 0) return true;
 
-        bool con1 = _go.collider != null;
+        bool con1 = _col != null;
         bool con2 = true; // TODO : 추가 조건
 
         return con1 && con2;
@@ -109,7 +109,7 @@ public class HandleManager : MonoBehaviour
         if (IsOverUI(_fingerID)) return;
 
         Vector2 worldPos = ScreenToWorld(_pos);
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero, 0f, layer);
+        Collider2D hit = Physics2D.OverlapPoint(worldPos, layer);
 
         if (CanSelect(hit))
         {
@@ -136,16 +136,7 @@ public class HandleManager : MonoBehaviour
 
         if (isDragging)
         {
-            if (maxDrag > 0f)
-            {
-                Vector2 delta = worldPos - dragStart;
-                float sqrMag = delta.sqrMagnitude;
-                float maxSqr = maxDrag * maxDrag;
-                if (sqrMag > maxSqr)
-                    worldPos = dragStart + delta.normalized * maxDrag;
-            }
-
-            dragCurrent = worldPos;
+            dragCurrent = ClampDrag(dragStart, worldPos);
             OnDragMove(dragStart, dragCurrent);
 #if UNITY_EDITOR
             dragPath.Add(dragCurrent);
@@ -159,15 +150,7 @@ public class HandleManager : MonoBehaviour
 
         if (isDragging)
         {
-            if (maxDrag > 0f)
-            {
-                Vector2 delta = worldPos - dragStart;
-                float sqrMag = delta.sqrMagnitude;
-                float maxSqr = maxDrag * maxDrag;
-                if (sqrMag > maxSqr)
-                    worldPos = dragStart + delta.normalized * maxDrag;
-            }
-
+            worldPos = ClampDrag(dragStart, worldPos);
             float distance = Vector2.Distance(dragStart, worldPos);
             if (distance >= drag)
             {
@@ -191,7 +174,7 @@ public class HandleManager : MonoBehaviour
         {
             isDoubleClick = true;
             time = Time.time;
-            StartCoroutine(SingleCoroutine(worldPos));
+            StartCoroutine(ClickCoroutine(worldPos));
         }
 
         isDragging = false;
@@ -200,7 +183,14 @@ public class HandleManager : MonoBehaviour
 #endif
     }
 
-    private IEnumerator SingleCoroutine(Vector2 _pos)
+    private Vector2 ClampDrag(Vector2 _start, Vector2 _current)
+    {
+        if (maxDrag <= 0f) return _current;
+        Vector2 delta = _current - _start;
+        return _start + Vector2.ClampMagnitude(delta, maxDrag);
+    }
+
+    private IEnumerator ClickCoroutine(Vector2 _pos)
     {
         yield return new WaitForSeconds(doubleClick);
         if (isDoubleClick)
