@@ -32,18 +32,21 @@ public class TestManager : MonoBehaviour
         #region 게임 테스트
         if (Input.GetKeyDown(KeyCode.P))
             GameManager.Instance?.Pause(!GameManager.Instance.IsPaused);
+        if (Input.GetKeyDown(KeyCode.O))
+            GameManager.Instance?.GameOver();
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            isAutoReplay = !isAutoReplay;
+            AutoPlay();
+        }
+        if (isAutoReplay && GameManager.Instance.IsGameOver && playRoutine == null)
+            playRoutine = StartCoroutine(AutoReplay());
+
         if (Input.GetKeyDown(KeyCode.R))
             GameManager.Instance?.Replay();
         if (Input.GetKeyDown(KeyCode.Q))
             GameManager.Instance?.Quit();
-        if (Input.GetKeyDown(KeyCode.G))
-            GameManager.Instance?.GameOver();
-
-        if (Input.GetKeyDown(KeyCode.O))
-            isAutoReplay = !isAutoReplay;
-
-        if (isAutoReplay && GameManager.Instance.IsGameOver && playRoutine == null)
-            playRoutine = StartCoroutine(AutoReplay());
         #endregion
 
         #region 사운드 테스트
