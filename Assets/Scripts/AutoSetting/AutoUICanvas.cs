@@ -4,7 +4,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasScaler))]
 public class AutoUICanvas : MonoBehaviour
 {
-    [SerializeField] private Vector2 res = new Vector2(1080, 1920);
     private CanvasScaler scaler;
     private int lastW, lastH;
 
@@ -25,7 +24,7 @@ public class AutoUICanvas : MonoBehaviour
         scaler = GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-        scaler.referenceResolution = res;
+        scaler.referenceResolution = AutoCamera.RefResolution;
     }
 
     private void Apply(bool _force)
@@ -39,7 +38,7 @@ public class AutoUICanvas : MonoBehaviour
         lastW = w; lastH = h;
 
         float current = (float)w / h;
-        float refAspect = res.x / res.y;
-        scaler.matchWidthOrHeight = current < refAspect ? 0f : 1f;
+        scaler.referenceResolution = AutoCamera.RefResolution;
+        scaler.matchWidthOrHeight = current < AutoCamera.RefAspect ? 0f : 1f;
     }
 }
