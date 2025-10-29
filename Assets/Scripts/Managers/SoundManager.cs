@@ -13,7 +13,7 @@ public struct SoundClip
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager Instance { get; private set; }
+    public static SoundManager Instance { private set; get; }
 
     [Header("Source")]
     [SerializeField] private AudioSource bgmSource;
@@ -155,7 +155,7 @@ public class SoundManager : MonoBehaviour
         SetDictionaries();
     }
 
-    public void SetBGMVolume(float _volume = 1)
+    public void SetBGMVolume(float _volume = 1f)
     {
         bgmVol = Mathf.Clamp01(_volume);
         bgmSource.volume = bgmVol;
@@ -166,7 +166,7 @@ public class SoundManager : MonoBehaviour
         OnChangeVolume?.Invoke(SoundType.BGM, bgmVol);
     }
 
-    public void SetSFXVolume(float _volume = 1)
+    public void SetSFXVolume(float _volume = 1f)
     {
         sfxVol = Mathf.Clamp01(_volume);
         sfxSource.volume = sfxVol;

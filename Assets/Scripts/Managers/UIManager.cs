@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance { get; private set; }
+    public static UIManager Instance { private set; get; }
 
     public event System.Action<bool> OnOpenUI;
 
@@ -46,21 +46,23 @@ public class UIManager : MonoBehaviour
         if (inGameUI == null)
             inGameUI = GameObject.Find("InGameUI");
         if (scoreText == null)
-            scoreText = GameObject.Find("InGameUI/Score/ScoreText").GetComponent<TextMeshProUGUI>();
+            scoreText = GameObject.Find("InGameUI/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
+        if (playTimeText == null)
+            playTimeText = GameObject.Find("InGameUI/Score/PlayTimeText")?.GetComponent<TextMeshProUGUI>();
 
         if (settingUI == null)
             settingUI = GameObject.Find("SettingUI");
         if (settingScoreText == null)
-            settingScoreText = GameObject.Find("SettingUI/Box/Score/ScoreText").GetComponent<TextMeshProUGUI>();
+            settingScoreText = GameObject.Find("SettingUI/Box/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
 
         if (bgmSlider == null)
-            bgmSlider = GameObject.Find("BGM/BgmSlider").GetComponent<Slider>();
+            bgmSlider = GameObject.Find("BGM/BgmSlider")?.GetComponent<Slider>();
         if (sfxSlider == null)
-            sfxSlider = GameObject.Find("SFX/SfxSlider").GetComponent<Slider>();
+            sfxSlider = GameObject.Find("SFX/SfxSlider")?.GetComponent<Slider>();
         if (bgmIcon == null)
-            bgmIcon = GameObject.Find("BGM/BgmBtn/BgmIcon").GetComponent<Image>();
+            bgmIcon = GameObject.Find("BGM/BgmBtn/BgmIcon")?.GetComponent<Image>();
         if (sfxIcon == null)
-            sfxIcon = GameObject.Find("SFX/SfxBtn/SfxIcon").GetComponent<Image>();
+            sfxIcon = GameObject.Find("SFX/SfxBtn/SfxIcon")?.GetComponent<Image>();
 
         bgmIcons.Clear();
         LoadSprite(bgmIcons, "White Music");
@@ -73,12 +75,12 @@ public class UIManager : MonoBehaviour
         if (confirmUI == null)
             confirmUI = GameObject.Find("ConfirmUI");
         if (confirmText == null)
-            confirmText = GameObject.Find("ConfirmUI/Box/ConfirmText").GetComponent<TextMeshProUGUI>();
+            confirmText = GameObject.Find("ConfirmUI/Box/ConfirmText")?.GetComponent<TextMeshProUGUI>();
 
         if (resultUI == null)
             resultUI = GameObject.Find("ResultUI");
         if (resultScoreText == null)
-            resultScoreText = GameObject.Find("ResultUI/Score/ScoreText").GetComponent<TextMeshProUGUI>();
+            resultScoreText = GameObject.Find("ResultUI/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
     }
 
     private static void LoadSprite(List<Sprite> _list, string _sprite)
@@ -113,17 +115,17 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        UpdateScore(GameManager.Instance.GetTotalScore());
+    }
+
     private void Update()
     {
         if (GameManager.Instance.IsPaused || GameManager.Instance.IsGameOver) return;
 
         playTime += Time.deltaTime;
         UpdatePlayTime();
-    }
-
-    private void Start()
-    {
-        UpdateScore(GameManager.Instance.GetTotalScore());
     }
 
     private void OnEnable()

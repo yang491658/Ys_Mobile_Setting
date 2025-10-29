@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class HandleManager : MonoBehaviour
 {
-    public static HandleManager Instance { get; private set; }
+    public static HandleManager Instance { private set; get; }
 
     private Camera cam => Camera.main;
     private LayerMask layer;

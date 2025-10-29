@@ -3,14 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance { private set; get; }
 
     [Header("Score")]
     [SerializeField] private int totalScore = 0;
     public event System.Action<int> OnChangeScore;
 
-    public bool IsPaused { get; private set; } = false;
-    public bool IsGameOver { get; private set; } = false;
+    public bool IsPaused { private set; get; } = false;
+    public bool IsGameOver { private set; get; } = false;
 
     private void Awake()
     {
