@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using GoogleMobileAds.Api;
 using System.Collections;
-using GoogleMobileAds.Api;
+using UnityEngine;
 
 public class ADManager : MonoBehaviour
 {

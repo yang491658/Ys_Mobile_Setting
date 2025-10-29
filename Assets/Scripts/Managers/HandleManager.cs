@@ -1,14 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class HandleManager : MonoBehaviour
 {
     public static HandleManager Instance { private set; get; }
 
     private Camera cam => Camera.main;
-    private LayerMask layer;
+    private LayerMask layer = ~0;
     private float time;
 
     [Header("Click")]

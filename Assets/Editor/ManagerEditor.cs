@@ -1,8 +1,8 @@
 ﻿#if UNITY_EDITOR
-using UnityEngine;
+using System;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using System;
+using UnityEngine;
 
 static public class ManagerEditor
 {
