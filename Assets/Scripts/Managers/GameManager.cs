@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.InteropServices;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     public bool IsPaused { private set; get; } = false;
     public bool IsGameOver { private set; get; } = false;
+
+    [DllImport("__Internal")] private static extern void GameOverReact();
+    [DllImport("__Internal")] private static extern void ReplayReact();
 
     private void Awake()
     {
@@ -74,7 +78,14 @@ public class GameManager : MonoBehaviour
         else _act?.Invoke();
     }
 
-    public void Replay() => ActWithReward(ReplayGame);
+    public void Replay()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        ReplayReact();
+#else
+        ActWithReward(ReplayGame);
+#endif
+    }
     private void ReplayGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     public void Quit() => ActWithReward(QuitGame);
@@ -96,6 +107,10 @@ public class GameManager : MonoBehaviour
         Pause(true);
         SoundManager.Instance?.GameOver();
         UIManager.Instance?.OpenResult(true);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        GameOverReact();
+#endif
     }
     #endregion
 
