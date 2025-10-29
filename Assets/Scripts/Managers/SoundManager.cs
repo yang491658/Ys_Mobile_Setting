@@ -31,7 +31,6 @@ public class SoundManager : MonoBehaviour
     private readonly Dictionary<string, AudioClip> bgmDict = new();
     private readonly Dictionary<string, AudioClip> sfxDict = new();
 
-
 #if UNITY_EDITOR
     private void OnValidate()
     {
