@@ -67,24 +67,16 @@ public class GameManager : MonoBehaviour
         Time.timeScale = _pause ? 0f : 1f;
     }
 
-    public void Replay()
+    private void ActWithReward(System.Action _act)
     {
-        if (ADManager.Instance != null)
-            ADManager.Instance?.ShowReward(() => { ReplayGame(); });
-        else
-            ReplayGame();
+        if (ADManager.Instance != null) ADManager.Instance.ShowReward(_act);
+        else _act?.Invoke();
     }
 
+    public void Replay() => ActWithReward(ReplayGame);
     private void ReplayGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    public void Quit()
-    {
-        if (ADManager.Instance != null)
-            ADManager.Instance?.ShowReward(() => { QuitGame(); });
-        else
-            QuitGame();
-    }
-
+    public void Quit() => ActWithReward(QuitGame);
     private void QuitGame()
     {
         Time.timeScale = 1f;

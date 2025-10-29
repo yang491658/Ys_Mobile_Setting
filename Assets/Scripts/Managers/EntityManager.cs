@@ -42,9 +42,6 @@ public class EntityManager : MonoBehaviour
     #region 제거
     #endregion
 
-    #region 동작
-    #endregion
-
     #region SET
     #endregion
 

@@ -10,7 +10,7 @@ public class AutoCamera : MonoBehaviour
     [SerializeField] private float baseSize = 12f;
     [SerializeField] private float minSize = 12f;
 
-    public static float SizeDelta { get; private set; } = 0f;
+    public static float SizeDelta { private set; get; } = 0f;
 
     private void Awake()
     {
@@ -44,7 +44,6 @@ public class AutoCamera : MonoBehaviour
         if (Mathf.Abs(delta - SizeDelta) > 1e-5f)
         {
             SizeDelta = delta;
-            EntityManager.Instance.SetEntity();
         }
     }
 }

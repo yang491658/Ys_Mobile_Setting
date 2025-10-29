@@ -19,19 +19,19 @@ public class HandleManager : MonoBehaviour
     [SerializeField][Min(0f)] private float maxDrag = 5f;
     private const float drag = 0.15f;
     private bool isDragging;
-    private Vector2 dragStart;
-    private Vector2 dragCurrent;
+    private Vector3 dragStart;
+    private Vector3 dragCurrent;
 
 #if UNITY_EDITOR
     [Header("Mark")]
     [SerializeField] private float markDuration = 1f;
     [SerializeField] private float markRadius = 0.5f;
     [SerializeField] private int markSegment = 24;
-    private readonly List<Vector2> marks = new();
+    private readonly List<Vector3> marks = new();
     private readonly List<float> markTimes = new();
     private readonly List<Color> markColors = new();
 
-    private readonly List<Vector2> dragPath = new();
+    private readonly List<Vector3> dragPath = new();
 #endif
 
 #if UNITY_EDITOR
@@ -91,7 +91,12 @@ public class HandleManager : MonoBehaviour
     private bool IsOverUI(int _fingerID = -1)
         => EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(_fingerID);
 
-    private Vector3 ScreenToWorld(Vector3 _screenPos) => cam.ScreenToWorldPoint(_screenPos);
+    private Vector3 ScreenToWorld(Vector3 _screenPos)
+    {
+        var p = _screenPos;
+        p.z = -cam.transform.position.z;
+        return cam.ScreenToWorldPoint(p);
+    }
 
     private bool CanSelect(Collider2D _col)
     {
@@ -104,11 +109,11 @@ public class HandleManager : MonoBehaviour
     }
 
     #region 구분
-    private void HandleBegin(Vector2 _pos, int _fingerID = -1)
+    private void HandleBegin(Vector3 _pos, int _fingerID = -1)
     {
         if (IsOverUI(_fingerID)) return;
 
-        Vector2 worldPos = ScreenToWorld(_pos);
+        Vector3 worldPos = ScreenToWorld(_pos);
         Collider2D hit = Physics2D.OverlapPoint(worldPos, layer);
 
         if (CanSelect(hit))
@@ -123,10 +128,10 @@ public class HandleManager : MonoBehaviour
         }
     }
 
-    private void HandleMove(Vector2 _pos)
+    private void HandleMove(Vector3 _pos)
     {
-        Vector2 worldPos = ScreenToWorld(_pos);
-        float distance = Vector2.Distance(dragStart, worldPos);
+        Vector3 worldPos = ScreenToWorld(_pos);
+        float distance = Vector3.Distance(dragStart, worldPos);
 
         if (!isDragging && distance >= drag)
         {
@@ -144,14 +149,14 @@ public class HandleManager : MonoBehaviour
         }
     }
 
-    private void HandleEnd(Vector2 _pos)
+    private void HandleEnd(Vector3 _pos)
     {
-        Vector2 worldPos = ScreenToWorld(_pos);
+        Vector3 worldPos = ScreenToWorld(_pos);
 
         if (isDragging)
         {
             worldPos = ClampDrag(dragStart, worldPos);
-            float distance = Vector2.Distance(dragStart, worldPos);
+            float distance = Vector3.Distance(dragStart, worldPos);
             if (distance >= drag)
             {
                 isDragging = false;
@@ -183,14 +188,14 @@ public class HandleManager : MonoBehaviour
 #endif
     }
 
-    private Vector2 ClampDrag(Vector2 _start, Vector2 _current)
+    private Vector3 ClampDrag(Vector3 _start, Vector3 _current)
     {
         if (maxDrag <= 0f) return _current;
-        Vector2 delta = _current - _start;
-        return _start + Vector2.ClampMagnitude(delta, maxDrag);
+        Vector3 delta = _current - _start;
+        return _start + Vector3.ClampMagnitude(delta, maxDrag);
     }
 
-    private IEnumerator ClickCoroutine(Vector2 _pos)
+    private IEnumerator ClickCoroutine(Vector3 _pos)
     {
         yield return new WaitForSeconds(doubleClick);
         if (isDoubleClick)
@@ -202,7 +207,7 @@ public class HandleManager : MonoBehaviour
     #endregion
 
     #region 동작
-    private void OnSingle(Vector2 _pos)
+    private void OnSingle(Vector3 _pos)
     {
         Debug.Log($"단순 터치 : {_pos}"); // TODO : 단순 터치 동작
 #if UNITY_EDITOR
@@ -210,7 +215,7 @@ public class HandleManager : MonoBehaviour
 #endif
     }
 
-    private void OnDouble(Vector2 _pos)
+    private void OnDouble(Vector3 _pos)
     {
         Debug.Log($"더블 터치 : {_pos}"); // TODO : 더블 터치 동작
 #if UNITY_EDITOR
@@ -218,35 +223,35 @@ public class HandleManager : MonoBehaviour
 #endif
     }
 
-    private void OnDragBegin(Vector2 _pos)
+    private void OnDragBegin(Vector3 _pos)
     {
         Debug.Log($"드래그 시작 : {_pos}"); // TODO : 드래그 시작 동작
     }
 
-    private void OnDragMove(Vector2 _start, Vector2 _current)
+    private void OnDragMove(Vector3 _start, Vector3 _current)
     {
         Debug.Log($"드래그 진행"); // TODO : 드래그 진행 동작
     }
 
-    private void OnDragEnd(Vector2 _start, Vector2 _end)
+    private void OnDragEnd(Vector3 _start, Vector3 _end)
     {
         Debug.Log($"드래그 종료 : {_start} → {_end}"); // TODO : 드래그 종료 동작
     }
 
 #if UNITY_EDITOR
-    private void OnRightClick(Vector2 _pos)
+    private void OnRightClick(Vector3 _pos)
     {
         Debug.Log($"우클릭 : {_pos}"); // TODO : 우클릭 동작
         AddClick(_pos, Color.yellow);
     }
 
-    private void OnMiddleClick(Vector2 _pos)
+    private void OnMiddleClick(Vector3 _pos)
     {
         Debug.Log($"휠클릭 : {_pos}"); // TODO : 휠클릭 동작
         AddClick(_pos, Color.red);
     }
 
-    private void AddClick(Vector2 _pos, Color _color)
+    private void AddClick(Vector3 _pos, Color _color)
     {
         marks.Add(_pos);
         markTimes.Add(Time.time + markDuration);
@@ -269,14 +274,14 @@ public class HandleManager : MonoBehaviour
                 continue;
             }
 
-            Vector2 center = marks[i];
+            Vector3 center = marks[i];
             Color c = markColors[i];
             for (int s = 0; s < markSegment; s++)
             {
                 float a0 = (Mathf.PI * 2f) * s / markSegment;
                 float a1 = (Mathf.PI * 2f) * (s + 1) / markSegment;
-                Vector2 p0 = center + new Vector2(Mathf.Cos(a0), Mathf.Sin(a0)) * markRadius;
-                Vector2 p1 = center + new Vector2(Mathf.Cos(a1), Mathf.Sin(a1)) * markRadius;
+                Vector3 p0 = center + new Vector3(Mathf.Cos(a0), Mathf.Sin(a0)) * markRadius;
+                Vector3 p1 = center + new Vector3(Mathf.Cos(a1), Mathf.Sin(a1)) * markRadius;
                 Debug.DrawLine(p0, p1, c);
             }
         }

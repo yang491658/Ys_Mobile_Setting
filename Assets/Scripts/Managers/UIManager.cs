@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     [Header("InGame UI")]
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI playTimeText;
+    private float playTime = 0f;
 
     [Header("Setting UI")]
     [SerializeField] private GameObject settingUI;
@@ -111,6 +113,14 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        if (GameManager.Instance.IsPaused || GameManager.Instance.IsGameOver) return;
+
+        playTime += Time.deltaTime;
+        UpdatePlayTime();
+    }
+
     private void Start()
     {
         UpdateScore(GameManager.Instance.GetTotalScore());
@@ -189,6 +199,15 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region 업데이트
+    public void ResetPlayTime() => playTime = 0;
+
+    private void UpdatePlayTime()
+    {
+        int total = Mathf.FloorToInt(playTime);
+        string s = (total / 60).ToString("00") + ":" + (total % 60).ToString("00");
+        playTimeText.text = s;
+    }
+
     public void UpdateScore(int _score)
     {
         string s = _score.ToString("0000");
@@ -255,7 +274,7 @@ public class UIManager : MonoBehaviour
     public void SetInGameUI(float _margin)
     {
         var rt = inGameUI.GetComponent<RectTransform>();
-        rt.offsetMax = new Vector2(rt.offsetMax.x, -_margin);
+        rt.offsetMax = new Vector3(rt.offsetMax.x, -_margin);
     }
     #endregion
 
