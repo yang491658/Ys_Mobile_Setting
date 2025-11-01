@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { private set; get; }
 
     [Header("Score")]
-    [SerializeField] private int totalScore = 0;
+    [SerializeField] private int score = 0;
     public event System.Action<int> OnChangeScore;
 
     public bool IsPaused { private set; get; } = false;
@@ -52,14 +52,14 @@ public class GameManager : MonoBehaviour
     #region 점수
     public void AddScore(int _score)
     {
-        totalScore += _score;
-        OnChangeScore?.Invoke(totalScore);
+        score += _score;
+        OnChangeScore?.Invoke(score);
     }
 
     public void ResetScore()
     {
-        totalScore = 0;
-        OnChangeScore?.Invoke(totalScore);
+        score = 0;
+        OnChangeScore?.Invoke(score);
     }
     #endregion
 
@@ -115,6 +115,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region GET
-    public int GetTotalScore() => totalScore;
+    public int GetScore() => score;
     #endregion
 }

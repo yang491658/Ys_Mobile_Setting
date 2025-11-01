@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateScore(GameManager.Instance.GetTotalScore());
+        UpdateScore(GameManager.Instance.GetScore());
     }
 
     private void Update()
