@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestManager : MonoBehaviour
 {
-    public static TestManager Instance { private set; get; }
+    static public TestManager Instance { private set; get; }
 
     [Header("Game Test")]
     [SerializeField] private int testCount = 1;
@@ -53,12 +53,12 @@ public class TestManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             bgmPause = !bgmPause;
-            SoundManager.Instance.PauseSound(bgmPause);
+            SoundManager.Instance?.PauseSound(bgmPause);
         }
         if (Input.GetKeyDown(KeyCode.M))
-            SoundManager.Instance.ToggleBGM();
+            SoundManager.Instance?.ToggleBGM();
         if (Input.GetKeyDown(KeyCode.N))
-            SoundManager.Instance.ToggleSFX();
+            SoundManager.Instance?.ToggleSFX();
         #endregion
 
         #region 엔티티 테스트

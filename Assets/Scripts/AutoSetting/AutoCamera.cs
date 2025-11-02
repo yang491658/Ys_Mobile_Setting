@@ -10,11 +10,11 @@ public class AutoCamera : MonoBehaviour
     [SerializeField] private float baseSize = 12f;
     [SerializeField] private float minSize = 12f;
 
-    public static float SizeDelta { private set; get; } = 0f;
-    public static Vector2 RefResolution { private set; get; }
-    public static float RefAspect { private set; get; }
-    public static float OrthoSize { private set; get; }
-    public static Rect WorldRect { private set; get; }
+    static public float SizeDelta { private set; get; } = 0f;
+    static public Vector2 RefResolution { private set; get; }
+    static public float RefAspect { private set; get; }
+    static public float OrthoSize { private set; get; }
+    static public Rect WorldRect { private set; get; }
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -40,7 +40,7 @@ public class AutoCamera : MonoBehaviour
 
     private void Update()
     {
-        if (Screen.width != lastW || Screen.height != lastH) Apply(false);
+        Apply(false);
     }
 
     private void Apply(bool _force)

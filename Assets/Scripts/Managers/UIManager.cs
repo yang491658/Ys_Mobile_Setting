@@ -9,14 +9,14 @@ using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance { private set; get; }
+    static public UIManager Instance { private set; get; }
 
     public event System.Action<bool> OnOpenUI;
 
     [Header("InGame UI")]
+    [SerializeField] private GameObject inGameUI;
     [SerializeField] private TextMeshProUGUI playTimeText;
     private float playTime = 0f;
-    [SerializeField] private GameObject inGameUI;
     [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header("Setting UI")]
@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
             resultScoreText = GameObject.Find("ResultUI/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
     }
 
-    private static void LoadSprite(List<Sprite> _list, string _sprite)
+    static private void LoadSprite(List<Sprite> _list, string _sprite)
     {
         if (string.IsNullOrEmpty(_sprite)) return;
         string[] guids = AssetDatabase.FindAssets("t:Sprite", new[] { "Assets/Imports/Dark UI/Icons" });
@@ -165,9 +165,9 @@ public class UIManager : MonoBehaviour
         if (settingUI == null) return;
 
         OnOpenUI?.Invoke(_on);
-        SoundManager.Instance?.PauseBGM(_on);
 
         inGameUI.SetActive(!_on);
+
         settingUI.SetActive(_on);
     }
 
@@ -187,6 +187,7 @@ public class UIManager : MonoBehaviour
         if (_pass) _action?.Invoke();
     }
 
+
     public void OpenResult(bool _on)
     {
         if (resultUI == null) return;
@@ -204,7 +205,7 @@ public class UIManager : MonoBehaviour
     #region 업데이트
     public void ResetPlayTime() => playTime = 0;
 
-    private void UpdatePlayTime()
+    public void UpdatePlayTime()
     {
         int total = Mathf.FloorToInt(playTime);
         string s = (total / 60).ToString("00") + ":" + (total % 60).ToString("00");
@@ -219,7 +220,7 @@ public class UIManager : MonoBehaviour
         resultScoreText.text = s;
     }
 
-    private void UpdateVolume(SoundType _type, float _volume)
+    public void UpdateVolume(SoundType _type, float _volume)
     {
         switch (_type)
         {
@@ -239,7 +240,7 @@ public class UIManager : MonoBehaviour
         UpdateIcon();
     }
 
-    private void UpdateIcon()
+    public void UpdateIcon()
     {
         if (bgmIcons.Count >= 2)
             bgmIcon.sprite = SoundManager.Instance.IsBGMMuted() ? bgmIcons[1] : bgmIcons[0];

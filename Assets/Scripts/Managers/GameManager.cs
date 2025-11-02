@@ -4,17 +4,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { private set; get; }
+    static public GameManager Instance { private set; get; }
 
     [Header("Score")]
     [SerializeField] private int score = 0;
+    private float scoreAdd = 0f;
     public event System.Action<int> OnChangeScore;
 
     public bool IsPaused { private set; get; } = false;
     public bool IsGameOver { private set; get; } = false;
 
-    [DllImport("__Internal")] private static extern void GameOverReact();
-    [DllImport("__Internal")] private static extern void ReplayReact();
+    [DllImport("__Internal")] static extern private void GameOverReact();
+    [DllImport("__Internal")] static extern private void ReplayReact();
 
     private void Awake()
     {
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour
     }
 
     #region 점수
-    public void AddScore(int _score)
+    public void ScoreUp(int _score = 1)
     {
         score += _score;
         OnChangeScore?.Invoke(score);
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
 
     private void ActWithReward(System.Action _act)
     {
-        if (ADManager.Instance != null) ADManager.Instance.ShowReward(_act);
+        if (ADManager.Instance != null) ADManager.Instance?.ShowReward(_act);
         else _act?.Invoke();
     }
 

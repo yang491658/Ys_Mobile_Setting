@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class HandleManager : MonoBehaviour
 {
-    public static HandleManager Instance { private set; get; }
+    static public HandleManager Instance { private set; get; }
 
     private Camera cam => Camera.main;
     private LayerMask layer = ~0;
@@ -21,6 +21,7 @@ public class HandleManager : MonoBehaviour
     private bool isDragging;
     private Vector3 dragStart;
     private Vector3 dragCurrent;
+    private bool isOverUI;
 
 #if UNITY_EDITOR
     [Header("Mark")]
@@ -111,7 +112,12 @@ public class HandleManager : MonoBehaviour
     #region 구분
     private void HandleBegin(Vector3 _pos, int _fingerID = -1)
     {
-        if (IsOverUI(_fingerID)) return;
+        if (IsOverUI(_fingerID))
+        {
+            isOverUI = true;
+            return;
+        }
+        else isOverUI = false;
 
         Vector3 worldPos = ScreenToWorld(_pos);
         Collider2D hit = Physics2D.OverlapPoint(worldPos, layer);
@@ -130,6 +136,8 @@ public class HandleManager : MonoBehaviour
 
     private void HandleMove(Vector3 _pos)
     {
+        if (isOverUI) return;
+
         Vector3 worldPos = ScreenToWorld(_pos);
         float distance = Vector3.Distance(dragStart, worldPos);
 
@@ -151,6 +159,12 @@ public class HandleManager : MonoBehaviour
 
     private void HandleEnd(Vector3 _pos)
     {
+        if (isOverUI)
+        {
+            isOverUI = false;
+            return;
+        }
+
         Vector3 worldPos = ScreenToWorld(_pos);
 
         if (isDragging)

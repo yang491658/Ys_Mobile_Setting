@@ -13,7 +13,7 @@ public struct SoundClip
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager Instance { private set; get; }
+    static public SoundManager Instance { private set; get; }
 
     [Header("Source")]
     [SerializeField] private AudioSource bgmSource;
@@ -43,7 +43,7 @@ public class SoundManager : MonoBehaviour
         soundClips.sfxClips = sfxList.ToArray();
     }
 
-    private static void LoadSound(List<AudioClip> _list, SoundType _type)
+    static private void LoadSound(List<AudioClip> _list, SoundType _type)
     {
         _list.Clear();
         string path = "Sounds/" + (_type == SoundType.BGM ? "BGMs" : "SFXs");
@@ -195,8 +195,6 @@ public class SoundManager : MonoBehaviour
     #region GET
     public float GetBGMVolume() => bgmVol;
     public float GetSFXVolume() => sfxVol;
-    public float GetSFXLength(string _name) =>
-        sfxDict.TryGetValue(_name, out var _clip) && _clip != null ? _clip.length : 0f;
 
     public bool IsBGMMuted() => bgmSource != null && bgmSource.mute;
     public bool IsSFXMuted() => sfxSource != null && sfxSource.mute;
