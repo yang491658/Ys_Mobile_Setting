@@ -1479,9 +1479,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f4d91872bc35d4eac4704e3f89e2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playTimeText: {fileID: 0}
   inGameUI: {fileID: 0}
   scoreText: {fileID: 0}
-  playTimeText: {fileID: 0}
   settingUI: {fileID: 0}
   settingScoreText: {fileID: 0}
   bgmSlider: {fileID: 0}
@@ -2939,7 +2939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b065d1a5e41792478ec6250f99070a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalScore: 0
+  score: 0
 --- !u!4 &892690366
 Transform:
   m_ObjectHideFlags: 0
@@ -3106,9 +3106,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 722285319}
   - {fileID: 1220609163}
   - {fileID: 1222573069}
-  - {fileID: 722285319}
   - {fileID: 548470386}
   m_Father: {fileID: 463422172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3343,7 +3343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9024cef7d3b014b857e148723f9b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  res: {x: 1080, y: 1920}
 --- !u!114 &1092585285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4802,7 +4801,7 @@ MonoBehaviour:
   testCount: 1
   isAutoPlay: 0
   isAutoReplay: 0
-  regameTime: 5
+  replayTime: 5
   bgmPause: 0
 --- !u!4 &1407473050
 Transform:

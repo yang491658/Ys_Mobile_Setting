@@ -14,10 +14,10 @@ public class UIManager : MonoBehaviour
     public event System.Action<bool> OnOpenUI;
 
     [Header("InGame UI")]
-    [SerializeField] private GameObject inGameUI;
-    [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI playTimeText;
     private float playTime = 0f;
+    [SerializeField] private GameObject inGameUI;
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header("Setting UI")]
     [SerializeField] private GameObject settingUI;
@@ -45,10 +45,10 @@ public class UIManager : MonoBehaviour
     {
         if (inGameUI == null)
             inGameUI = GameObject.Find("InGameUI");
-        if (scoreText == null)
-            scoreText = GameObject.Find("InGameUI/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
         if (playTimeText == null)
             playTimeText = GameObject.Find("InGameUI/Score/PlayTimeText")?.GetComponent<TextMeshProUGUI>();
+        if (scoreText == null)
+            scoreText = GameObject.Find("InGameUI/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
 
         if (settingUI == null)
             settingUI = GameObject.Find("SettingUI");
