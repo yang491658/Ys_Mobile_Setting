@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI confirmText;
     private System.Action confirmAction;
 
-    [Header("Game Over UI")]
+    [Header("Result UI")]
     [SerializeField] private GameObject resultUI;
     [SerializeField] private TextMeshProUGUI resultScoreText;
 
