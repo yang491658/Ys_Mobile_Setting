@@ -178,11 +178,18 @@ public class UIManager : MonoBehaviour
         if (!_pass)
         {
             confirmUI.SetActive(_on);
-            confirmText.text = $"{_text}하시겠습니까?";
-            confirmAction = _action;
+            if (_on)
+            {
+                confirmText.text = $"{_text}하시겠습니까?";
+                confirmAction = _action;
+            }
         }
 
-        if (!_on) confirmAction = null;
+        if (!_on)
+        {
+            confirmText.text = string.Empty;
+            confirmAction = null;
+        }
 
         if (_pass) _action?.Invoke();
     }
@@ -267,11 +274,16 @@ public class UIManager : MonoBehaviour
     public void OnClickReplay() => OpenConfirm(true, "다시", GameManager.Instance.Replay);
     public void OnClickQuit() => OpenConfirm(true, "종료", GameManager.Instance.Quit);
 
-    public void OnClickOkay() => confirmAction?.Invoke();
+    public void OnClickOkay()
+    {
+        var action = confirmAction;
+        OpenConfirm(false);
+        action?.Invoke();
+    }
     public void OnClickCancel() => OpenConfirm(false);
 
-    public void OnClickReplayByPass() => OpenConfirm(true, "다시", GameManager.Instance.Replay, true);
-    public void OnClickQuitByPass() => OpenConfirm(true, "종료", GameManager.Instance.Quit, true);
+    public void OnClickReplayDirect() => OpenConfirm(true, "다시", GameManager.Instance.Replay, true);
+    public void OnClickQuitDirect() => OpenConfirm(true, "종료", GameManager.Instance.Quit, true);
     #endregion
 
     #region SET
