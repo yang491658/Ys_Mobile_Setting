@@ -187,7 +187,6 @@ public class UIManager : MonoBehaviour
         if (_pass) _action?.Invoke();
     }
 
-
     public void OpenResult(bool _on)
     {
         if (resultUI == null) return;
@@ -237,10 +236,10 @@ public class UIManager : MonoBehaviour
             default:
                 return;
         }
-        UpdateIcon();
+        UpdateSoundIcon();
     }
 
-    public void UpdateIcon()
+    public void UpdateSoundIcon()
     {
         if (bgmIcons.Count >= 2)
             bgmIcon.sprite = SoundManager.Instance.IsBGMMuted() ? bgmIcons[1] : bgmIcons[0];
@@ -255,11 +254,12 @@ public class UIManager : MonoBehaviour
                 sfxIcon.sprite = sfxIcons[0];
         }
     }
+
     #endregion
 
     #region 버튼
-    public void OnClickSetting() => OpenSetting(true);
     public void OnClickClose() => OpenUI(false);
+    public void OnClickSetting() => OpenSetting(true);
 
     public void OnClickBGM() => SoundManager.Instance?.ToggleBGM();
     public void OnClickSFX() => SoundManager.Instance?.ToggleSFX();
@@ -267,11 +267,11 @@ public class UIManager : MonoBehaviour
     public void OnClickReplay() => OpenConfirm(true, "다시", GameManager.Instance.Replay);
     public void OnClickQuit() => OpenConfirm(true, "종료", GameManager.Instance.Quit);
 
-    public void OnClickReplayByPass() => OpenConfirm(true, "다시", GameManager.Instance.Replay, true);
-    public void OnClickQuitByPass() => OpenConfirm(true, "종료", GameManager.Instance.Quit, true);
-
     public void OnClickOkay() => confirmAction?.Invoke();
     public void OnClickCancel() => OpenConfirm(false);
+
+    public void OnClickReplayByPass() => OpenConfirm(true, "다시", GameManager.Instance.Replay, true);
+    public void OnClickQuitByPass() => OpenConfirm(true, "종료", GameManager.Instance.Quit, true);
     #endregion
 
     #region SET
