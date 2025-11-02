@@ -103,9 +103,7 @@ public class SoundManager : MonoBehaviour
             SetBGMVolume(0f);
         }
         else
-        {
             SetBGMVolume(prevBgmVol);
-        }
     }
     #endregion
 
@@ -131,9 +129,7 @@ public class SoundManager : MonoBehaviour
             SetSFXVolume(0f);
         }
         else
-        {
             SetSFXVolume(prevSfxVol);
-        }
     }
 
     public void Button() => PlaySFX("Button");
