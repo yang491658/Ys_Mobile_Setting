@@ -165,9 +165,7 @@ public class UIManager : MonoBehaviour
         if (settingUI == null) return;
 
         OnOpenUI?.Invoke(_on);
-
         inGameUI.SetActive(!_on);
-
         settingUI.SetActive(_on);
     }
 
@@ -199,11 +197,7 @@ public class UIManager : MonoBehaviour
         if (resultUI == null) return;
 
         OnOpenUI?.Invoke(_on);
-
         inGameUI.SetActive(!_on);
-        settingUI.SetActive(!_on);
-        confirmUI.SetActive(!_on);
-
         resultUI.SetActive(_on);
     }
     #endregion
