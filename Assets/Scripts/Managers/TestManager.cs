@@ -16,6 +16,9 @@ public class TestManager : MonoBehaviour
     [Header("Sound Test")]
     [SerializeField] private bool bgmPause = false;
 
+    [Header("Entiy Test")]
+    [SerializeField] private bool spawn = true;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -25,6 +28,11 @@ public class TestManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        SoundManager.Instance?.ToggleBGM();
     }
 
     private void Update()
@@ -67,7 +75,8 @@ public class TestManager : MonoBehaviour
             KeyCode key = (i == 10) ? KeyCode.Alpha0 : (KeyCode)((int)KeyCode.Alpha0 + i);
             if (Input.GetKeyDown(key))
             {
-                break;
+                    break;
+
             }
         }
         #endregion

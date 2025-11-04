@@ -7,8 +7,8 @@ public class AutoCamera : MonoBehaviour
     private int lastW, lastH;
 
     [SerializeField] private Vector2 res = new Vector2(1080, 1920);
-    [SerializeField] private float baseSize = 12f;
-    [SerializeField] private float minSize = 12f;
+    [SerializeField] private float baseSize = 10f;
+    [SerializeField] private float minSize = 10f;
 
     static public float SizeDelta { private set; get; } = 0f;
     static public Vector2 RefResolution { private set; get; }

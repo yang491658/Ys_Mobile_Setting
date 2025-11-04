@@ -9,8 +9,14 @@ public class GameManager : MonoBehaviour
 {
     static public GameManager Instance { private set; get; }
 
+    [Header("Speed")]
+    [SerializeField] private float speed = 1f;
+    [SerializeField] private float minSpeed = 0.5f;
+    [SerializeField] private float maxSpeed = 3f;
+
     [Header("Score")]
     [SerializeField] private int score = 0;
+    private float scoreAdd = 0f;
     public event System.Action<int> OnChangeScore;
 
     public bool IsPaused { private set; get; } = false;
@@ -19,6 +25,15 @@ public class GameManager : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")] private static extern void GameOverReact();
     [DllImport("__Internal")] private static extern void ReplayReact();
+#endif
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        minSpeed = Mathf.Clamp(minSpeed, 0.05f, 1f);
+        maxSpeed = Mathf.Clamp(maxSpeed, 1f, 100f);
+        if (minSpeed < maxSpeed) minSpeed = maxSpeed;
+    }
 #endif
 
     private void Awake()
@@ -30,6 +45,20 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        if (IsPaused || IsGameOver) return;
+
+        scoreAdd += Time.deltaTime;
+
+        if (scoreAdd >= 1f)
+        {
+            int add = Mathf.FloorToInt(scoreAdd);
+            scoreAdd -= add;
+            ScoreUp(add);
+        }
     }
 
     private void OnEnable()
@@ -74,7 +103,7 @@ public class GameManager : MonoBehaviour
         if (IsPaused == _pause) return;
 
         IsPaused = _pause;
-        Time.timeScale = _pause ? 0f : 1f;
+        Time.timeScale = _pause ? 0f : speed;
     }
 
     private void ActWithReward(System.Action _act)
@@ -119,7 +148,18 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region SET
+    public void SetSpeed(float _speed)
+    {
+        speed = Mathf.Clamp(_speed, minSpeed, maxSpeed);
+        if (!IsPaused) Time.timeScale = speed;
+    }
+    #endregion
+
     #region GET
+    public float GetSpeed() => speed;
+    public float GetMinSpeed() => minSpeed;
+    public float GetMaxSpeed() => maxSpeed;
     public int GetScore() => score;
     #endregion
 }

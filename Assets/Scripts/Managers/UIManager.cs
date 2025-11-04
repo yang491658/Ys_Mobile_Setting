@@ -2,6 +2,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using NUnit.Framework.Interfaces;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -22,6 +24,7 @@ public class UIManager : MonoBehaviour
     [Header("Setting UI")]
     [SerializeField] private GameObject settingUI;
     [SerializeField] private TextMeshProUGUI settingScoreText;
+    [SerializeField] private Slider speedSlider;
 
     [Header("Sound UI")]
     [SerializeField] private Slider bgmSlider;
@@ -54,6 +57,8 @@ public class UIManager : MonoBehaviour
             settingUI = GameObject.Find("SettingUI");
         if (settingScoreText == null)
             settingScoreText = GameObject.Find("SettingUI/Box/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
+        if (speedSlider == null)
+            speedSlider = GameObject.Find("Speed/SpeedSlider")?.GetComponent<Slider>();
 
         if (bgmSlider == null)
             bgmSlider = GameObject.Find("BGM/BgmSlider")?.GetComponent<Slider>();
@@ -122,15 +127,20 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.IsPaused || GameManager.Instance.IsGameOver) return;
+        if (GameManager.Instance.IsGameOver) return;
 
-        playTime += Time.deltaTime;
+        playTime += Time.unscaledDeltaTime;
         UpdatePlayTime();
     }
 
     private void OnEnable()
     {
         GameManager.Instance.OnChangeScore += UpdateScore;
+        speedSlider.minValue = GameManager.Instance.GetMinSpeed();
+        speedSlider.maxValue = GameManager.Instance.GetMaxSpeed();
+        speedSlider.wholeNumbers = false;
+        speedSlider.value = GameManager.Instance.GetSpeed();
+        speedSlider.onValueChanged.AddListener(GameManager.Instance.SetSpeed);
 
         SoundManager.Instance.OnChangeVolume += UpdateVolume;
         bgmSlider.value = SoundManager.Instance.GetBGMVolume();
@@ -144,6 +154,7 @@ public class UIManager : MonoBehaviour
     private void OnDisable()
     {
         GameManager.Instance.OnChangeScore -= UpdateScore;
+        speedSlider.onValueChanged.RemoveListener(GameManager.Instance.SetSpeed);
 
         SoundManager.Instance.OnChangeVolume -= UpdateVolume;
         bgmSlider.onValueChanged.RemoveListener(SoundManager.Instance.SetBGMVolume);
@@ -255,7 +266,6 @@ public class UIManager : MonoBehaviour
                 sfxIcon.sprite = sfxIcons[0];
         }
     }
-
     #endregion
 
     #region 버튼
