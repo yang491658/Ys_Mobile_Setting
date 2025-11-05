@@ -18,6 +18,7 @@ public class SoundManager : MonoBehaviour
     [Header("Source")]
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
+    readonly private HashSet<AudioSource> sfxLoops = new();
 
     [Header("Volume")]
     [SerializeField][Range(0f, 1f)] private float bgmVol = 1f;
@@ -28,8 +29,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("Clip")]
     [SerializeField] private SoundClip soundClips;
-    private readonly Dictionary<string, AudioClip> bgmDict = new();
-    private readonly Dictionary<string, AudioClip> sfxDict = new();
+    readonly private Dictionary<string, AudioClip> bgmDict = new();
+    readonly private Dictionary<string, AudioClip> sfxDict = new();
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -102,8 +103,7 @@ public class SoundManager : MonoBehaviour
             prevBgmVol = bgmVol;
             SetBGMVolume(0f);
         }
-        else
-            SetBGMVolume(prevBgmVol);
+        else SetBGMVolume(prevBgmVol);
     }
     #endregion
 
@@ -121,6 +121,33 @@ public class SoundManager : MonoBehaviour
             PlaySFX(clip);
     }
 
+    public AudioSource PlaySFXLoop(AudioClip _clip, Transform _owner)
+    {
+        var src = _owner.gameObject.AddComponent<AudioSource>();
+        src.clip = _clip;
+        src.loop = true;
+        src.playOnAwake = false;
+        src.volume = sfxVol;
+        src.mute = (sfxVol <= 0f);
+        src.spatialBlend = 0f;
+        src.Play();
+        sfxLoops.Add(src);
+        return src;
+    }
+
+    public AudioSource PlaySFXLoop(string _name, Transform _owner)
+    {
+        if (!sfxDict.TryGetValue(_name, out var _clip)) return null;
+        return PlaySFXLoop(_clip, _owner);
+    }
+
+    public void StopSFXLoop(AudioSource _src)
+    {
+        sfxLoops.Remove(_src);
+        if (_src.isPlaying) _src.Stop();
+        Destroy(_src);
+    }
+
     public void ToggleSFX()
     {
         if (!IsSFXMuted() && sfxVol > 0f)
@@ -128,12 +155,10 @@ public class SoundManager : MonoBehaviour
             prevSfxVol = sfxVol;
             SetSFXVolume(0f);
         }
-        else
-            SetSFXVolume(prevSfxVol);
+        else SetSFXVolume(prevSfxVol);
     }
 
     public void Button() => PlaySFX("Button");
-
     public void GameOver()
     {
         PlaySFX("GameOver");
@@ -172,6 +197,16 @@ public class SoundManager : MonoBehaviour
         sfxVol = Mathf.Clamp01(_volume);
         sfxSource.volume = sfxVol;
         sfxSource.mute = (sfxVol <= 0f);
+
+        var dead = new List<AudioSource>();
+        foreach (var src in sfxLoops) if (src == null) dead.Add(src);
+        for (int i = 0; i < dead.Count; i++) sfxLoops.Remove(dead[i]);
+
+        foreach (var src in sfxLoops)
+        {
+            src.volume = sfxVol;
+            src.mute = (sfxVol <= 0f);
+        }
 
         if (sfxVol > 0f) prevSfxVol = sfxVol;
 

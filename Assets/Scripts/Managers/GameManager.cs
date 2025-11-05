@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [Header("Speed")]
     [SerializeField] private float speed = 1f;
     [SerializeField] private float minSpeed = 0.5f;
-    [SerializeField] private float maxSpeed = 3f;
+    [SerializeField] private float maxSpeed = 2f;
 
     [Header("Score")]
     [SerializeField] private int score = 0;

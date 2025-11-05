@@ -2,8 +2,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using NUnit.Framework.Interfaces;
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -273,7 +271,6 @@ public class UIManager : MonoBehaviour
     #region 버튼
     public void OnClickClose() => OpenUI(false);
     public void OnClickSetting() => OpenSetting(true);
-
 
     public void OnClickSpeed()
     {
