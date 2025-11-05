@@ -175,9 +175,10 @@ public class UIManager : MonoBehaviour
     {
         if (settingUI == null) return;
 
-        OnOpenUI?.Invoke(_on);
         inGameUI.SetActive(!_on);
         settingUI.SetActive(_on);
+
+        OnOpenUI?.Invoke(_on);
     }
 
     public void OpenConfirm(bool _on, string _text = null, System.Action _action = null, bool _pass = false)
@@ -207,9 +208,10 @@ public class UIManager : MonoBehaviour
     {
         if (resultUI == null) return;
 
-        OnOpenUI?.Invoke(_on);
         inGameUI.SetActive(!_on);
         resultUI.SetActive(_on);
+
+        OnOpenUI?.Invoke(_on);
     }
     #endregion
 
@@ -272,6 +274,7 @@ public class UIManager : MonoBehaviour
     public void OnClickClose() => OpenUI(false);
     public void OnClickSetting() => OpenSetting(true);
 
+    public void OnClickSpeed() => speedSlider.value = 1f;
     public void OnClickBGM() => SoundManager.Instance?.ToggleBGM();
     public void OnClickSFX() => SoundManager.Instance?.ToggleSFX();
 

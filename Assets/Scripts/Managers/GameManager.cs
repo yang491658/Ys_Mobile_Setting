@@ -87,12 +87,14 @@ public class GameManager : MonoBehaviour
     public void ScoreUp(int _score = 1)
     {
         score += _score;
+
         OnChangeScore?.Invoke(score);
     }
 
     public void ResetScore()
     {
         score = 0;
+
         OnChangeScore?.Invoke(score);
     }
     #endregion
