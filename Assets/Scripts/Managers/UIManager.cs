@@ -147,6 +147,7 @@ public class UIManager : MonoBehaviour
         sfxSlider.onValueChanged.AddListener(SoundManager.Instance.SetSFXVolume);
 
         OnOpenUI += GameManager.Instance.Pause;
+        OnOpenUI += SoundManager.Instance.PauseSFXLoop;
     }
 
     private void OnDisable()
@@ -159,6 +160,7 @@ public class UIManager : MonoBehaviour
         sfxSlider.onValueChanged.RemoveListener(SoundManager.Instance.SetSFXVolume);
 
         OnOpenUI -= GameManager.Instance.Pause;
+        OnOpenUI -= SoundManager.Instance.PauseSFXLoop;
     }
 
     #region 오픈

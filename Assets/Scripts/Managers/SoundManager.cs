@@ -141,6 +141,14 @@ public class SoundManager : MonoBehaviour
         return PlaySFXLoop(_clip, _owner);
     }
 
+    public void PauseSFXLoop(bool _on)
+    {
+        if (_on)
+            foreach (var src in sfxLoops) src.Pause();
+        else
+            foreach (var src in sfxLoops) src.UnPause();
+    }
+
     public void StopSFXLoop(AudioSource _src)
     {
         sfxLoops.Remove(_src);
