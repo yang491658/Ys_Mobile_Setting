@@ -143,6 +143,8 @@ public class SoundManager : MonoBehaviour
 
     public void PauseSFXLoop(bool _on)
     {
+        sfxLoops.RemoveWhere(src => src == null);
+
         if (_on)
             foreach (var src in sfxLoops) src.Pause();
         else
