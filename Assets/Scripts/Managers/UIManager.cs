@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Confirm UI")]
     [SerializeField] private GameObject confirmUI;
-    [SerializeField] private TextMeshProUGUI confirmContent;
+    [SerializeField] private TextMeshProUGUI confirmTitle;
     private System.Action confirmAction;
 
     [Header("Result UI")]
@@ -77,8 +77,8 @@ public class UIManager : MonoBehaviour
 
         if (confirmUI == null)
             confirmUI = GameObject.Find("ConfirmUI");
-        if (confirmContent == null)
-            confirmContent = GameObject.Find("ConfirmUI/Box/ConfirmContent")?.GetComponent<TextMeshProUGUI>();
+        if (confirmTitle == null)
+            confirmTitle = GameObject.Find("ConfirmUI/Box/ConfirmTitle")?.GetComponent<TextMeshProUGUI>();
 
         if (resultUI == null)
             resultUI = GameObject.Find("ResultUI");
@@ -189,14 +189,14 @@ public class UIManager : MonoBehaviour
             confirmUI.SetActive(_on);
             if (_on)
             {
-                confirmContent.text = $"{_text}하시겠습니까?";
+                confirmTitle.text = $"{_text}하시겠습니까?";
                 confirmAction = _action;
             }
         }
 
         if (!_on)
         {
-            confirmContent.text = string.Empty;
+            confirmTitle.text = string.Empty;
             confirmAction = null;
         }
 
