@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 3
   tags:
   - Manager
+  - Background
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
   - 
@@ -44,6 +45,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 2071170817
     locked: 0
   m_RenderingLayers:
   - Default

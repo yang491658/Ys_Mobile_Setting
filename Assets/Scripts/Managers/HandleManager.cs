@@ -9,11 +9,11 @@ public class HandleManager : MonoBehaviour
 
     private Camera cam => Camera.main;
     private LayerMask layer = ~0;
-    private float time;
 
     [Header("Click")]
     private const float doubleClick = 0.25f;
     private bool isDoubleClick;
+    private float clickTimer;
 
     [Header("Drag")]
     [SerializeField][Min(0f)] private float maxDrag = 5f;
@@ -182,16 +182,16 @@ public class HandleManager : MonoBehaviour
             }
         }
 
-        if (Time.time - time < doubleClick)
+        if (Time.time - clickTimer < doubleClick)
         {
             isDoubleClick = false;
-            time = 0;
+            clickTimer = 0;
             OnDouble(worldPos);
         }
         else
         {
             isDoubleClick = true;
-            time = Time.time;
+            clickTimer = Time.time;
             StartCoroutine(ClickCoroutine(worldPos));
         }
 
