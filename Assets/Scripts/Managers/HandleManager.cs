@@ -88,6 +88,7 @@ public class HandleManager : MonoBehaviour
             HandleEnd(t.position);
     }
 
+    #region 판정
     private bool IsOverUI(int _fingerID = -1)
         => EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(_fingerID);
 
@@ -107,6 +108,7 @@ public class HandleManager : MonoBehaviour
 
         return con1 && con2;
     }
+    #endregion
 
     #region 구분
     private void HandleBegin(Vector3 _pos, int _fingerID = -1)
