@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ADManager : MonoBehaviour
 {
-    static public ADManager Instance { private set; get; }
+    public static ADManager Instance { private set; get; }
 
     [SerializeField][Min(0)] private float delay = 0.5f;
 

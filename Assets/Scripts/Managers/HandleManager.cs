@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class HandleManager : MonoBehaviour
 {
-    static public HandleManager Instance { private set; get; }
+    public static HandleManager Instance { private set; get; }
 
     private Camera cam => Camera.main;
     private LayerMask layer = ~0;
@@ -28,10 +28,10 @@ public class HandleManager : MonoBehaviour
     [SerializeField] private float markDuration = 1f;
     [SerializeField] private float markRadius = 0.5f;
     [SerializeField] private int markSegment = 24;
-    readonly private List<Vector3> marks = new();
-    readonly private List<float> markTimes = new();
-    readonly private List<Color> markColors = new();
-    readonly private List<Vector3> dragPath = new();
+    private readonly List<Vector3> marks = new();
+    private readonly List<float> markTimes = new();
+    private readonly List<Color> markColors = new();
+    private readonly List<Vector3> dragPath = new();
 #endif
 
 #if UNITY_EDITOR

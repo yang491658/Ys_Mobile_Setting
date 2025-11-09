@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
-    static public UIManager Instance { private set; get; }
+    public static UIManager Instance { private set; get; }
 
     public event System.Action<bool> OnOpenUI;
 

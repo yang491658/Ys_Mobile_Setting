@@ -6,7 +6,7 @@ using UnityEditor;
 
 public class EntityManager : MonoBehaviour
 {
-    static public EntityManager Instance { private set; get; }
+    public static EntityManager Instance { private set; get; }
 
     [Header("Data")]
     [SerializeField] private GameObject basePrefab;

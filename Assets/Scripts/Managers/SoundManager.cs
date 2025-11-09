@@ -13,12 +13,12 @@ public struct SoundClip
 
 public class SoundManager : MonoBehaviour
 {
-    static public SoundManager Instance { private set; get; }
+    public static SoundManager Instance { private set; get; }
 
     [Header("Source")]
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
-    readonly private HashSet<AudioSource> sfxLoops = new();
+    private readonly HashSet<AudioSource> sfxLoops = new();
 
     [Header("Volume")]
     [SerializeField][Range(0f, 1f)] private float bgmVol = 1f;
@@ -29,8 +29,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("Clip")]
     [SerializeField] private SoundClip soundClips;
-    readonly private Dictionary<string, AudioClip> bgmDict = new();
-    readonly private Dictionary<string, AudioClip> sfxDict = new();
+    private readonly Dictionary<string, AudioClip> bgmDict = new();
+    private readonly Dictionary<string, AudioClip> sfxDict = new();
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -44,7 +44,7 @@ public class SoundManager : MonoBehaviour
         soundClips.sfxClips = sfxList.ToArray();
     }
 
-    static private void LoadSound(List<AudioClip> _list, SoundType _type)
+    private void LoadSound(List<AudioClip> _list, SoundType _type)
     {
         _list.Clear();
         string path = "Sounds/" + (_type == SoundType.BGM ? "BGMs" : "SFXs");

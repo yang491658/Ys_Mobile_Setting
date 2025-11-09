@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 public class GameManager : MonoBehaviour
 {
-    static public GameManager Instance { private set; get; }
+    public static GameManager Instance { private set; get; }
 
     [Header("Speed")]
     [SerializeField] private float speed = 1f;

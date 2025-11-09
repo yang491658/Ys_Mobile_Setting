@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestManager : MonoBehaviour
 {
-    static public TestManager Instance { private set; get; }
+    public static TestManager Instance { private set; get; }
 
     [Header("Game Test")]
     [SerializeField] private int testCount = 1;
