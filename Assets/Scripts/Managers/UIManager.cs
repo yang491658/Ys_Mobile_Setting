@@ -17,11 +17,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private TextMeshProUGUI playTimeText;
     private float playTime = 0f;
-    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreNum;
 
     [Header("Setting UI")]
     [SerializeField] private GameObject settingUI;
-    [SerializeField] private TextMeshProUGUI settingScoreText;
+    [SerializeField] private TextMeshProUGUI settingScoreNum;
     [SerializeField] private Slider speedSlider;
 
     [Header("Sound UI")]
@@ -34,12 +34,12 @@ public class UIManager : MonoBehaviour
 
     [Header("Confirm UI")]
     [SerializeField] private GameObject confirmUI;
-    [SerializeField] private TextMeshProUGUI confirmText;
+    [SerializeField] private TextMeshProUGUI confirmContent;
     private System.Action confirmAction;
 
     [Header("Result UI")]
     [SerializeField] private GameObject resultUI;
-    [SerializeField] private TextMeshProUGUI resultScoreText;
+    [SerializeField] private TextMeshProUGUI resultScoreNum;
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -48,13 +48,13 @@ public class UIManager : MonoBehaviour
             inGameUI = GameObject.Find("InGameUI");
         if (playTimeText == null)
             playTimeText = GameObject.Find("InGameUI/Score/PlayTimeText")?.GetComponent<TextMeshProUGUI>();
-        if (scoreText == null)
-            scoreText = GameObject.Find("InGameUI/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
+        if (scoreNum == null)
+            scoreNum = GameObject.Find("InGameUI/Score/ScoreNum")?.GetComponent<TextMeshProUGUI>();
 
         if (settingUI == null)
             settingUI = GameObject.Find("SettingUI");
-        if (settingScoreText == null)
-            settingScoreText = GameObject.Find("SettingUI/Box/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
+        if (settingScoreNum == null)
+            settingScoreNum = GameObject.Find("SettingUI/Box/Score/ScoreNum")?.GetComponent<TextMeshProUGUI>();
         if (speedSlider == null)
             speedSlider = GameObject.Find("Speed/SpeedSlider")?.GetComponent<Slider>();
 
@@ -77,13 +77,13 @@ public class UIManager : MonoBehaviour
 
         if (confirmUI == null)
             confirmUI = GameObject.Find("ConfirmUI");
-        if (confirmText == null)
-            confirmText = GameObject.Find("ConfirmUI/Box/ConfirmText")?.GetComponent<TextMeshProUGUI>();
+        if (confirmContent == null)
+            confirmContent = GameObject.Find("ConfirmUI/Box/ConfirmContent")?.GetComponent<TextMeshProUGUI>();
 
         if (resultUI == null)
             resultUI = GameObject.Find("ResultUI");
-        if (resultScoreText == null)
-            resultScoreText = GameObject.Find("ResultUI/Score/ScoreText")?.GetComponent<TextMeshProUGUI>();
+        if (resultScoreNum == null)
+            resultScoreNum = GameObject.Find("ResultUI/Score/ScoreNum")?.GetComponent<TextMeshProUGUI>();
     }
 
     static private void LoadSprite(List<Sprite> _list, string _sprite)
@@ -189,14 +189,14 @@ public class UIManager : MonoBehaviour
             confirmUI.SetActive(_on);
             if (_on)
             {
-                confirmText.text = $"{_text}하시겠습니까?";
+                confirmContent.text = $"{_text}하시겠습니까?";
                 confirmAction = _action;
             }
         }
 
         if (!_on)
         {
-            confirmText.text = string.Empty;
+            confirmContent.text = string.Empty;
             confirmAction = null;
         }
 
@@ -226,9 +226,9 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int _score)
     {
         string s = _score.ToString("0000");
-        scoreText.text = s;
-        settingScoreText.text = s;
-        resultScoreText.text = s;
+        scoreNum.text = s;
+        settingScoreNum.text = s;
+        resultScoreNum.text = s;
     }
 
     public void UpdateVolume(SoundType _type, float _volume)
