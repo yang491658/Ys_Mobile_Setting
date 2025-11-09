@@ -47,20 +47,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Update()
-    {
-        if (IsPaused || IsGameOver) return;
-
-        scoreAdd += Time.deltaTime;
-
-        if (scoreAdd >= 1f)
-        {
-            int add = Mathf.FloorToInt(scoreAdd);
-            scoreAdd -= add;
-            ScoreUp(add);
-        }
-    }
-
     private void OnEnable()
     {
         SceneManager.sceneLoaded += LoadGame;
@@ -87,14 +73,12 @@ public class GameManager : MonoBehaviour
     public void ScoreUp(int _score = 1)
     {
         score += _score;
-
         OnChangeScore?.Invoke(score);
     }
 
     public void ResetScore()
     {
         score = 0;
-
         OnChangeScore?.Invoke(score);
     }
     #endregion

@@ -76,7 +76,6 @@ public class TestManager : MonoBehaviour
             if (Input.GetKeyDown(key))
             {
                     break;
-
             }
         }
         #endregion

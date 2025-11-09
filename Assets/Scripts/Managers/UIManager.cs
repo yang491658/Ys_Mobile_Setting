@@ -177,7 +177,6 @@ public class UIManager : MonoBehaviour
 
         inGameUI.SetActive(!_on);
         settingUI.SetActive(_on);
-
         OnOpenUI?.Invoke(_on);
     }
 
@@ -210,7 +209,6 @@ public class UIManager : MonoBehaviour
 
         inGameUI.SetActive(!_on);
         resultUI.SetActive(_on);
-
         OnOpenUI?.Invoke(_on);
     }
     #endregion
