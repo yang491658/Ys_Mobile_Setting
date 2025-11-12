@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Score")]
     [SerializeField] private int score = 0;
-    private float scoreAdd = 0f;
     public event System.Action<int> OnChangeScore;
 
     public bool IsPaused { private set; get; } = false;
