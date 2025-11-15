@@ -25,12 +25,6 @@ public class EntityManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    #region 소환
-    #endregion
-
-    #region 제거
-    #endregion
-
     #region SET
     #endregion
 
