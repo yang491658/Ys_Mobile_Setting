@@ -16,9 +16,6 @@ public class TestManager : MonoBehaviour
     [Header("Sound Test")]
     [SerializeField] private bool bgmPause = false;
 
-    [Header("Entiy Test")]
-    [SerializeField] private bool spawn = true;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
