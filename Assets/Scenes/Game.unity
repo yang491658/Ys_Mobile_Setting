@@ -5218,7 +5218,6 @@ MonoBehaviour:
   isAutoReplay: 0
   replayTime: 5
   bgmPause: 0
-  spawn: 1
 --- !u!4 &1407473050
 Transform:
   m_ObjectHideFlags: 0
@@ -7091,8 +7090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8757234db11563c478a55d79795ecf2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basePrefab: {fileID: 0}
-  spawnPos: {fileID: 0}
 --- !u!4 &2061510342
 Transform:
   m_ObjectHideFlags: 0
