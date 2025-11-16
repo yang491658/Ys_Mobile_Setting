@@ -102,11 +102,7 @@ public class HandleManager : MonoBehaviour
     private bool CanSelect(Collider2D _col)
     {
         if (layer == 0) return true;
-
-        bool con1 = _col != null;
-        bool con2 = true; // TODO : 추가 조건
-
-        return con1 && con2;
+        return _col != null;
     }
     #endregion
 
