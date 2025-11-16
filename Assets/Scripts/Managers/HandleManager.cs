@@ -131,6 +131,14 @@ public class HandleManager : MonoBehaviour
             dragPath.Add(dragStart);
 #endif
         }
+        else
+        {
+            canDrag = false;
+            isDragging = false;
+#if UNITY_EDITOR
+            dragPath.Clear();
+#endif
+        }
     }
 
     private void HandleMove(Vector3 _pos)
@@ -162,6 +170,11 @@ public class HandleManager : MonoBehaviour
         if (isOverUI)
         {
             isOverUI = false;
+            canDrag = false;
+            isDragging = false;
+#if UNITY_EDITOR
+            dragPath.Clear();
+#endif
             return;
         }
 
