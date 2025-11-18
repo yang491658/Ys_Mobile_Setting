@@ -220,7 +220,6 @@ public class UIManager : MonoBehaviour
     #region 업데이트
     public void ResetUI() => playTime = 0;
 
-
     public void UpdateSpeed(float _speed)
     {
         if (!Mathf.Approximately(speedSlider.value, _speed))
