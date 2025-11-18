@@ -133,12 +133,14 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.OnChangeScore += UpdateScore;
+        GameManager.Instance.OnChangeSpeed += UpdateSpeed;
         speedSlider.minValue = GameManager.Instance.GetMinSpeed();
         speedSlider.maxValue = GameManager.Instance.GetMaxSpeed();
         speedSlider.wholeNumbers = false;
         speedSlider.value = GameManager.Instance.GetSpeed();
         speedSlider.onValueChanged.AddListener(GameManager.Instance.SetSpeed);
+
+        GameManager.Instance.OnChangeScore += UpdateScore;
 
         SoundManager.Instance.OnChangeVolume += UpdateVolume;
         bgmSlider.value = SoundManager.Instance.GetBGMVolume();
@@ -152,8 +154,10 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.OnChangeScore -= UpdateScore;
+        GameManager.Instance.OnChangeSpeed -= UpdateSpeed;
         speedSlider.onValueChanged.RemoveListener(GameManager.Instance.SetSpeed);
+
+        GameManager.Instance.OnChangeScore -= UpdateScore;
 
         SoundManager.Instance.OnChangeVolume -= UpdateVolume;
         bgmSlider.onValueChanged.RemoveListener(SoundManager.Instance.SetBGMVolume);
@@ -215,6 +219,13 @@ public class UIManager : MonoBehaviour
 
     #region 업데이트
     public void ResetUI() => playTime = 0;
+
+
+    public void UpdateSpeed(float _speed)
+    {
+        if (!Mathf.Approximately(speedSlider.value, _speed))
+            speedSlider.value = _speed;
+    }
 
     public void UpdatePlayTime()
     {
