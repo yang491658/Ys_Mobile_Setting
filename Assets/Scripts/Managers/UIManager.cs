@@ -214,7 +214,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region 업데이트
-    public void ResetPlayTime() => playTime = 0;
+    public void ResetUI() => playTime = 0;
 
     public void UpdatePlayTime()
     {
