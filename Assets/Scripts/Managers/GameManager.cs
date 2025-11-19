@@ -61,27 +61,14 @@ public class GameManager : MonoBehaviour
     {
         Pause(false);
         IsGameOver = false;
-        ResetScore();
 
         SoundManager.Instance?.PlayBGM("Default");
 
         UIManager.Instance?.ResetUI();
         UIManager.Instance?.OpenUI(false);
-    }
 
-    #region 점수
-    public void ScoreUp(int _score = 1)
-    {
-        score += _score;
-        OnChangeScore?.Invoke(score);
+        ResetScore();
     }
-
-    public void ResetScore()
-    {
-        score = 0;
-        OnChangeScore?.Invoke(score);
-    }
-    #endregion
 
     #region 진행
     public void Pause(bool _pause)
@@ -131,6 +118,20 @@ public class GameManager : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
         GameOverReact();
 #endif
+    }
+    #endregion
+
+    #region 점수
+    public void ScoreUp(int _score = 1)
+    {
+        score += _score;
+        OnChangeScore?.Invoke(score);
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
+        OnChangeScore?.Invoke(score);
     }
     #endregion
 
