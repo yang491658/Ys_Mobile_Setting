@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class TestManager : MonoBehaviour
@@ -46,7 +45,7 @@ public class TestManager : MonoBehaviour
             GameManager.Instance?.Replay();
         }
         if (isAuto && !GameManager.Instance.IsPaused)
-                if (GameManager.Instance.IsGameOver && autoRoutine == null)
+            if (GameManager.Instance.IsGameOver && autoRoutine == null)
                 autoRoutine = StartCoroutine(AutoReplay());
         #endregion
 
@@ -68,7 +67,7 @@ public class TestManager : MonoBehaviour
             KeyCode key = (i == 10) ? KeyCode.Alpha0 : (KeyCode)((int)KeyCode.Alpha0 + i);
             if (Input.GetKeyDown(key))
             {
-                    break;
+                break;
             }
         }
         #endregion
@@ -94,4 +93,3 @@ public class TestManager : MonoBehaviour
         autoRoutine = null;
     }
 }
-#endif
