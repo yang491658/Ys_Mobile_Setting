@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { private set; get; }
 
     public event System.Action<bool> OnOpenUI;
+    private static readonly string[] units = { "K", "M", "B", "T" };
 
     [Header("Count UI")]
     [SerializeField] private TextMeshProUGUI countText;
@@ -183,6 +184,7 @@ public class UIManager : MonoBehaviour
         OnOpenUI -= SoundManager.Instance.PauseSFXLoop;
     }
 
+    #region 기타
     public void StartCountdown()
     {
         if (countRoutine != null) StopCoroutine(countRoutine);
@@ -232,6 +234,36 @@ public class UIManager : MonoBehaviour
 
         countRoutine = null;
     }
+
+    private string FormatNumber(int _number, bool _full)
+    {
+        if (_full && _number < 10000)
+            return _number.ToString("0000");
+
+        for (int i = units.Length; i > 0; i--)
+        {
+            float n = Mathf.Pow(1000f, i);
+            if (_number >= n)
+            {
+                float value = _number / n;
+
+                if (value >= 100f)
+                    return ((int)value).ToString() + units[i - 1];
+
+                if (value >= 10f)
+                {
+                    float v10 = Mathf.Floor(value * 10f) / 10f;
+                    return v10.ToString("0.0") + units[i - 1];
+                }
+
+                float v100 = Mathf.Floor(value * 100f) / 100f;
+                return v100.ToString("0.00") + units[i - 1];
+            }
+        }
+
+        return _full ? _number.ToString("0000") : _number.ToString();
+    }
+    #endregion
 
     #region 오픈
     public void OpenUI(bool _on)
@@ -306,7 +338,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScore(int _score)
     {
-        string s = _score.ToString("0000");
+        string s = FormatNumber(_score, true);
         scoreNum.text = s;
         settingScoreNum.text = s;
         resultScoreNum.text = s;
