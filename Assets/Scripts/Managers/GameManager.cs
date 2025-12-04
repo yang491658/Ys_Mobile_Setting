@@ -62,11 +62,11 @@ public class GameManager : MonoBehaviour
         Pause(false);
         IsGameOver = false;
 
+        ResetScore();
+
         UIManager.Instance?.ResetUI();
         UIManager.Instance?.OpenUI(false);
         UIManager.Instance?.StartCountdown();
-
-        ResetScore();
     }
 
     #region 진행
