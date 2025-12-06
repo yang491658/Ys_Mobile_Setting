@@ -25,6 +25,13 @@ public class TestManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        SoundManager.Instance?.ToggleBGM();
+
+        AutoPlay();
+    }
+
     private void Update()
     {
         #region 게임 테스트
